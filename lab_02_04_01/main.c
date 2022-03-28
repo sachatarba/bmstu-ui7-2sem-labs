@@ -6,11 +6,11 @@
 #define MAX_SIZE 10
 #define SIZE 200
 
-int input_array(int *elements_number, int *array);
+int input_array(int *array, int *elements_number);
 
-void print_array(int elements_number, int *array);
+void print_array(int *array, int elements_number);
 
-void insertion_sort(int elements_number, int *array);
+void insertion_sort(int *array, int elements_number);
 
 int main(void)
 {
@@ -18,22 +18,22 @@ int main(void)
     int elements_number = 0;
     int res = ERR_OK;
 
-    if ((res = input_array(&elements_number, array)) != ERR_NO_ELM)
+    if ((res = input_array(array, &elements_number)) != ERR_NO_ELM)
     {
-        insertion_sort(elements_number, array);
+        insertion_sort(array, elements_number);
 
         if (elements_number > MAX_SIZE)
         {
             elements_number = MAX_SIZE;
         }
 
-        print_array(elements_number, array);
+        print_array(array, elements_number);
     }
 
     return res;
 }
 
-int input_array(int *elements_number, int *array)
+int input_array(int *array, int *elements_number)
 {
     int current_element = 0;
     int is_correct = 0;
@@ -59,7 +59,7 @@ int input_array(int *elements_number, int *array)
     return is_correct;
 }
 
-void print_array(int elements_number, int *array)
+void print_array(int *array, int elements_number)
 {
     for (int current_element = 0; current_element < elements_number; ++current_element)
     {
@@ -67,7 +67,7 @@ void print_array(int elements_number, int *array)
     }
 }
 
-void insertion_sort(int elements_number, int *array)
+void insertion_sort(int *array, int elements_number)
 {
     for (int current_element = 1; current_element < elements_number; ++current_element)
     {

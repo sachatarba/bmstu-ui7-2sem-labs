@@ -5,15 +5,15 @@
 #define MAX_SIZE 10
 #define SIZE 20
 
-int input_array(int *elements_number, int *array);
+int input_array(int *array, int *elements_number);
 
-void print_array(int elements_number, int *array);
+void print_array(int *array, int elements_number);
 
 int reverse_number(int number);
 
-void insert_element(int element, int pos, int *array, int array_size);
+void insert_element(int *array, int array_size, int element, int pos);
 
-void modify_array(int array_size, int *array, int *new_array_size);
+void modify_array(int *array, int array_size, int *new_array_size);
 
 int main(void)
 {
@@ -21,14 +21,14 @@ int main(void)
     int elements_number = 0;
     int exit_code = ERR_INVALID_NUMBER_OF_ELM;
 
-    if (input_array(&elements_number, array))
+    if (input_array(array, &elements_number))
     {
         int new_array_size = 0;
 
         if (elements_number <= MAX_SIZE && elements_number > 0)
         {
-            modify_array(elements_number, array, &new_array_size);
-            print_array(new_array_size, array);
+            modify_array(array, elements_number, &new_array_size);
+            print_array(array, new_array_size);
             exit_code = ERR_OK;
         }
     }
@@ -36,7 +36,7 @@ int main(void)
     return exit_code;
 }
 
-int input_array(int *elements_number, int *array)
+int input_array(int *array, int *elements_number)
 {
     int is_correct = 1;
 
@@ -56,7 +56,7 @@ int input_array(int *elements_number, int *array)
     return is_correct;
 }
 
-void print_array(int elements_number, int *array)
+void print_array(int *array, int elements_number)
 {
     for (int current_element = 0; current_element < elements_number; ++current_element)
     {
@@ -80,7 +80,7 @@ int reverse_number(int number)
     return reverse;
 }
 
-void insert_element(int element, int pos, int *array, int array_size)
+void insert_element(int *array, int array_size, int element, int pos)
 {
     for (int current_pos = array_size; current_pos >= pos; --current_pos)
     {
@@ -90,7 +90,7 @@ void insert_element(int element, int pos, int *array, int array_size)
     array[pos] = element; 
 }
 
-void modify_array(int array_size, int *array, int *new_array_size)
+void modify_array(int *array, int array_size, int *new_array_size)
 {
     *new_array_size = array_size;
 
@@ -98,7 +98,7 @@ void modify_array(int array_size, int *array, int *new_array_size)
     {
         if (array[current_element] > 0)
         {
-            insert_element(reverse_number(array[current_element]), current_element + 1, array, *new_array_size);
+            insert_element(array, *new_array_size, reverse_number(array[current_element]), current_element + 1);
             ++current_element;
             ++*new_array_size;
         }

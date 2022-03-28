@@ -4,12 +4,14 @@
 #define ERR_OK 0
 #define ERR_INVALID_NUMBER_OF_ELM 1
 #define MAX_SIZE 10
+#define MAX_DIGITS 10
+#define BASE 10
 
-int input_array(int *elements_number, int *array);
+int input_array(int *array, int *elements_number);
 
-void print_array(int elements_number, int *array);
+void print_array(int *array, int elements_number);
 
-void make_array(int elements_number_of_old_array, int *elements_number_of_new_array, int *old_array, int *new_array);
+void make_array(int *old_array, int elements_number_of_old_array, int *new_array, int *elements_number_of_new_array);
 
 int check_number(int number);
 
@@ -19,15 +21,15 @@ int main(void)
     int elements_number = 0;
     int exit_code = ERR_INVALID_NUMBER_OF_ELM;
 
-    if (input_array(&elements_number, array))
+    if (input_array(array, &elements_number))
     {
         if (elements_number <= MAX_SIZE && elements_number > 0)
         {
             int new_array[MAX_SIZE] = { 0 };
             int new_elements_number = 0;
 
-            make_array(elements_number, &new_elements_number, array, new_array);
-            print_array(new_elements_number, new_array);
+            make_array(array, elements_number, new_array, &new_elements_number);
+            print_array(new_array, new_elements_number);
 
             if (new_elements_number != 0)
             {
@@ -39,7 +41,7 @@ int main(void)
     return exit_code;
 }
 
-int input_array(int *elements_number, int *array)
+int input_array(int *array, int *elements_number)
 {
     int is_correct = 1;
 
@@ -59,7 +61,7 @@ int input_array(int *elements_number, int *array)
     return is_correct;
 }
 
-void print_array(int elements_number, int *array)
+void print_array(int *array, int elements_number)
 {
     for (int current_element = 0; current_element < elements_number; ++current_element)
     {
@@ -70,7 +72,7 @@ void print_array(int elements_number, int *array)
 int check_number(int number)
 {
     int number_cp = number;
-    int digits[10] = { 0 };
+    int digits[MAX_DIGITS] = { 0 };
     int sum = 0;
     int current_digit = 0;
     int digits_counter = 0;
@@ -78,8 +80,8 @@ int check_number(int number)
 
     while (number > 0)
     {
-        current_digit = number % 10;
-        number /= 10;
+        current_digit = number % BASE;
+        number /= BASE;
         digits[digits_counter] = current_digit;
         ++digits_counter;
     }
@@ -97,7 +99,7 @@ int check_number(int number)
     return is_amstrong_number;
 }
 
-void make_array(int elements_number_of_old_array, int *elements_number_of_new_array, int *old_array, int *new_array)
+void make_array(int *old_array, int elements_number_of_old_array, int *new_array, int *elements_number_of_new_array)
 {
     *elements_number_of_new_array = 0;
 

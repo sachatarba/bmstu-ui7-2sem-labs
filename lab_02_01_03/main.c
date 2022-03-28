@@ -3,23 +3,24 @@
 
 #define ERR_OK 0
 #define ERR_INVALID_NUMBER 1
+#define MAX_SIZE 10
 
-int input_array(int *elements_number, int *array);
+int input_array(int *array, int *elements_number);
 
-double calc_geometric_mean(int elements_number, int *array);
+double calc_geometric_mean(int *array, int elements_number);
 
 int main(void)
 {
-    int array[10] = { 0 };
+    int array[MAX_SIZE] = { 0 };
     int elements_number = 0;
     int exit_code = ERR_INVALID_NUMBER;
     double ans = 0;
 
-    if (input_array(&elements_number, array))
+    if (input_array(array, &elements_number))
     {
-        if (elements_number <= 10 && elements_number > 0)
+        if (elements_number <= MAX_SIZE && elements_number > 0)
         {
-            ans = calc_geometric_mean(elements_number, array);
+            ans = calc_geometric_mean(array, elements_number);
 
             if (ans != 0)
             {
@@ -32,7 +33,7 @@ int main(void)
     return exit_code;
 }
 
-int input_array(int *elements_number, int *array)
+int input_array(int *array, int *elements_number)
 {
     int is_correct = 1;
 
@@ -52,7 +53,7 @@ int input_array(int *elements_number, int *array)
     return is_correct;
 }
 
-double calc_geometric_mean(int elements_number, int *array)
+double calc_geometric_mean(int *array, int elements_number)
 {
     double geometric_mean = 1;
     int counter_of_positive_number = 0;
