@@ -1,4 +1,8 @@
+//вариант 1
 #include <stdio.h>
+
+#define ERR_OK 0
+#define ERR_INP 1
 
 int input_array(int *array, int *size);
 
@@ -10,11 +14,17 @@ int main(void)
 {
 	int size = 0;
 	int array[10] = { 0 };
-	input_array(array, &size);
-	modify_array(array, size);
-	print_array(array, size);
 	
-	return 0;
+	int rc = ERR_INP;
+	
+	if (input_array(array, &size))
+	{
+		modify_array(array, size);
+		print_array(array, size);
+		rc = ERR_OK;
+	}
+	
+	return rc;
 }
 
 int input_array(int *array, int *size)
