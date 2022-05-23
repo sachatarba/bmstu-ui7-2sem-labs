@@ -1,0 +1,5 @@
+3
+aa c a
+aa aa bb
+aa aa aa
+
