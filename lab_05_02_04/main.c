@@ -20,9 +20,7 @@
 int main(int argc, char *argv[])
 {
     int rc = ERR_OK;
-    // char file_name[20];
-    // printf("%s", argv[0]);
-    // scanf("%s", file_name);
+
     if (argc == ARGS)
     {
         FILE *fp = fopen(argv[ARGS - 1], "r");
@@ -36,10 +34,8 @@ int main(int argc, char *argv[])
             {
                 if (ind_max - ind_min > NUMBERS_BETWEEN)
                 {
-                    // printf("%d %d\n", ind_max, ind_min);
                     fseek(fp, 0, 0);
                     double sum = calc_sum(fp, ind_min, ind_max);
-                    // printf("%lf\n", sum);
                     double average = sum / (abs(ind_max - ind_min) - 1);
 
                     printf("%lf", average);
@@ -48,7 +44,6 @@ int main(int argc, char *argv[])
                 {
                     rc = ERR_NO_NUMBERS_BETWEEN;
                 }
-
             }
             else
             {
