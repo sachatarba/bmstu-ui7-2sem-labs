@@ -1,6 +1,6 @@
-#include <stdio.h>
-
 #pragma once
+
+#include <stdio.h>
 
 int process(FILE *f, int *maximum, int *second_maximum);
 
