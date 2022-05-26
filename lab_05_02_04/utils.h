@@ -1,6 +1,6 @@
-#include <stdio.h>
-
 #pragma once
+
+#include <stdio.h>
 
 void swap(double *num1, double *num2);
 

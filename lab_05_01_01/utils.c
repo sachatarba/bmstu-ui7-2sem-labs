@@ -1,3 +1,5 @@
+#pragma once
+
 #include "utils.h"
 
 #define ERR_OK 0
