@@ -1,3 +1,4 @@
+#include <string.h>
 #include "utils.h"
 
 void write_struct(FILE *fp, product_t *product, int pos)
@@ -56,7 +57,7 @@ int comparator(product_t *product1, product_t *product2)
     }
     else if (product1->price == product2->price)
     {
-        if (product1->count > product2->price)
+        if (product1->count > product2->count)
         {
             res = 1;
         }
@@ -75,19 +76,20 @@ int comparator(product_t *product1, product_t *product2)
 
 void copy(FILE *source, FILE *destination)
 {
-    product_t product;
+    product_t product = { { '\0' }, { '\0' }, 0, 0 };
     int pos = 0;
 
     while (read_struct(source, &product, pos) == 1)
     {
         write_struct(destination, &product, pos);
+        ++pos;
     }
 }
 
 void swap_struct(FILE *fp, int pos1, int pos2)
 {
-    product_t temp1;
-    product_t temp2;
+    product_t temp1 = { { '\0' }, { '\0' }, 0, 0 };
+    product_t temp2 = { { '\0' }, { '\0' }, 0, 0 };
 
     read_struct(fp, &temp1, pos1);
     read_struct(fp, &temp2, pos2);
@@ -95,22 +97,20 @@ void swap_struct(FILE *fp, int pos1, int pos2)
     write_struct(fp, &temp1, pos2);
 }
 
-void sort(FILE *source, FILE *destination)
+void sort(FILE *fp)
 {
-    copy(source, destination);
-
-    product_t temp1, temp2;
+    product_t temp1 = { { '\0' }, { '\0' }, 0, 0 }, temp2 = { { '\0' }, { '\0' }, 0, 0 };
     int pos1, pos2 = 0;
 
-    while (read_struct(destination, &temp1, pos1) == 1)
+    while (read_struct(fp, &temp1, pos1) == 1)
     {
         pos2 = 0;
 
-        while (read_struct(destination, &temp1, pos2) == 1 && read_struct(destination, &temp2, pos2 + 1) == 1)
+        while (read_struct(fp, &temp1, pos2) == 1 && read_struct(fp, &temp2, pos2 + 1) == 1)
         {
             if (comparator(&temp1, &temp2) == -1)
             {
-                swap_struct(destination, pos2, pos2 + 1);
+                swap_struct(fp, pos2, pos2 + 1);
             }
 
             ++pos2;
@@ -122,12 +122,43 @@ void sort(FILE *source, FILE *destination)
 
 void print_file(FILE *fp)
 {
-    product_t temp;
+    product_t temp = { { '\0' }, { '\0' }, 0, 0 };
     int pos = 0;
 
     while (read_struct(fp, &temp, pos) == 1)
     {
         print_struct(&temp);
+        ++pos;
+    }
+}
+
+int check_name(product_t *product, char substr[])
+{
+    int res = 0;
+
+    if (*substr)
+    {
+        if (strstr(product->name, substr) != NULL)
+        {
+            if (!*(strstr(product->name, substr) + strlen(substr)))
+            {
+                res = 1;
+            }
+        }
+    }
+
+    return res;
+}
+
+void find_products_by_name(FILE *fp, char substr_name[])
+{
+    product_t temp = { { '\0' }, { '\0' }, 0, 0 };
+    int pos = 0;
+
+    while (read_struct(fp, &temp, pos) == 1)
+    {
+        if (check_name(&temp, substr_name))
+            print_struct(&temp);
         ++pos;
     }
 }

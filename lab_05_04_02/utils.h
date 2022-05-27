@@ -28,6 +28,10 @@ void copy(FILE *source, FILE *destination);
 
 void swap_struct(FILE *fp, int pos1, int pos2);
 
-void sort(FILE *source, FILE *destination);
+void sort(FILE *destination);
 
 void print_file(FILE *fp);
+
+int check_name(product_t *product, char substr[]);
+
+void find_products_by_name(FILE *fp, char substr_name[]);

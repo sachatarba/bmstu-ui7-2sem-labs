@@ -16,17 +16,8 @@
 
 int main(int argc, char *argv[])
 {
-    printf("o shit i am sorry");
     int rc = ERR_OK;
 
-    // FILE *fp = fopen("file_out.txt", "r+b");
-    // product_t temp;
-    // input_struct(&temp);
-    // write_struct(fp, &temp, 3);
-    // print_file(fp);
-    
-
-    printf("o shit i am sorry");
     if (argc == ARGS_A_B)
     {
         if (!strcmp(argv[ARGS_A_B - 3], FIRST_FLAG))
@@ -35,15 +26,25 @@ int main(int argc, char *argv[])
 
             if (source_file != NULL)
             {
-                FILE *destination_file = fopen(argv[ARGS_A_B - 1], "wb");
+                FILE *destination_file = fopen(argv[ARGS_A_B - 1], "w+b");
 
                 if (destination_file != NULL)
                 {
-                    printf("o shit i am sorry");
-                    sort(source_file, destination_file);
-                    print_file(destination_file);
-                    
+                    copy(source_file, destination_file);
                     fclose(destination_file);
+
+                    FILE *destination_file = fopen(argv[ARGS_A_B - 1], "r+b");
+
+                    if (destination_file != NULL)
+                    {    
+                        sort(destination_file);
+                        print_file(destination_file);
+                        fclose(destination_file);
+                    }
+                    else
+                    {
+                        rc = ERR_NO_FILE;
+                    }
                 }
                 else
                 {
@@ -57,7 +58,36 @@ int main(int argc, char *argv[])
                 rc = ERR_NO_FILE;
             }
         }
-    }
+        else if (!strcmp(argv[ARGS_A_B - 3], SECOND_FLAG))
+        {
+            FILE *fp = fopen(argv[ARGS_A_B - 2], "rb");
+            if (fp != NULL)
+            {
+                if (strlen(argv[ARGS_A_B - 1]))
+                {
+                    find_products_by_name(fp, argv[ARGS_A_B - 1]);
+                }
+                else
+                {
+                    rc = ERR_WRONG_FLAGS;
+                }
 
+                fclose(fp);
+            }
+            else
+            {
+                rc = ERR_NO_FILE;
+            }
+        }
+        else
+        {
+            rc = ERR_WRONG_FLAGS;
+        }
+    }
+    else
+    {
+        rc = ERR_WRONG_FLAGS;
+    }
+    
     return rc;
 }
