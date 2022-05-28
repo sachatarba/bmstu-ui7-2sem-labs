@@ -12,76 +12,67 @@
 
 #define ERR_OK 0
 #define ERR_NO_FILE 1
+#define ERR_EMPTY_FILE 2
 #define ERR_WRONG_FLAGS 53
 
 int main(int argc, char *argv[])
 {
     int rc = ERR_OK;
 
-    if (argc == ARGS_A_B)
+    if (argc == ARGS_A_B && !strcmp(argv[ARGS_A_B - 3], FIRST_FLAG))
     {
-        if (!strcmp(argv[ARGS_A_B - 3], FIRST_FLAG))
+        FILE *source_file = fopen(argv[ARGS_A_B - 2], "rb");
+
+        if (source_file != NULL)
         {
-            FILE *source_file = fopen(argv[ARGS_A_B - 2], "rb");
+            FILE *destination_file = fopen(argv[ARGS_A_B - 1], "r+b");
 
-            if (source_file != NULL)
+            if (destination_file != NULL)
             {
-                FILE *destination_file = fopen(argv[ARGS_A_B - 1], "w+b");
-
-                if (destination_file != NULL)
+                if (copy(source_file, destination_file)) 
                 {
-                    copy(source_file, destination_file);
-                    fclose(destination_file);
-
-                    FILE *destination_file = fopen(argv[ARGS_A_B - 1], "r+b");
-
-                    if (destination_file != NULL)
-                    {    
-                        sort(destination_file);
-                        print_file(destination_file);
-                        fclose(destination_file);
-                    }
-                    else
-                    {
-                        rc = ERR_NO_FILE;
-                    }
+                    sort(destination_file);
+                    // print_file(destination_file);
                 }
                 else
                 {
-                    rc = ERR_NO_FILE;
+                    rc = ERR_EMPTY_FILE;
                 }
 
-                fclose(source_file);
+                fclose(destination_file);
             }
             else
             {
                 rc = ERR_NO_FILE;
             }
-        }
-        else if (!strcmp(argv[ARGS_A_B - 3], SECOND_FLAG))
-        {
-            FILE *fp = fopen(argv[ARGS_A_B - 2], "rb");
-            if (fp != NULL)
-            {
-                if (strlen(argv[ARGS_A_B - 1]))
-                {
-                    find_products_by_name(fp, argv[ARGS_A_B - 1]);
-                }
-                else
-                {
-                    rc = ERR_WRONG_FLAGS;
-                }
 
-                fclose(fp);
-            }
-            else
-            {
-                rc = ERR_NO_FILE;
-            }
+            fclose(source_file);
         }
         else
         {
-            rc = ERR_WRONG_FLAGS;
+            rc = ERR_NO_FILE;
+        }
+    }
+    else if (argc == ARGS_A_B && !strcmp(argv[ARGS_A_B - 3], SECOND_FLAG))
+    {
+        FILE *fp = fopen(argv[ARGS_A_B - 2], "rb");
+        
+        if (fp != NULL)
+        {
+            if (strlen(argv[ARGS_A_B - 1]))
+            {
+                    find_products_by_name(fp, argv[ARGS_A_B - 1]);
+            }
+            else
+            {
+                rc = ERR_WRONG_FLAGS;
+            }
+
+            fclose(fp);
+        }
+        else
+        {
+            rc = ERR_NO_FILE;
         }
     }
     else

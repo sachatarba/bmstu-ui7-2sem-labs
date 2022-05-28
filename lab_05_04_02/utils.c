@@ -1,14 +1,13 @@
 #include <string.h>
 #include "utils.h"
 
+#define OK 1
+#define ERR 0
+
 void write_struct(FILE *fp, product_t *product, int pos)
 {
     long int seek_cur = ftell(fp);
     fseek(fp, sizeof(*product) * pos, SEEK_SET);
-    // fwrite(product->name, sizeof(product->name), 1, fp);
-    // fwrite(product->producer, sizeof(product->producer), 1, fp);
-    // fwrite(&product->price, sizeof(product->price), 1, fp);
-    // fwrite(&product->count, sizeof(product->count), 1, fp);
     fwrite(product, sizeof(*product), 1, fp);
     fseek(fp, seek_cur, SEEK_SET);
 }
@@ -20,13 +19,6 @@ int read_struct(FILE *fp, product_t *product, int pos)
 
     fseek(fp, sizeof(*product) * pos, SEEK_SET);
 
-    // if ((rc = fread(product->name, sizeof(product->name), 1, fp)) == 1)
-    // {
-    //     fread(product->producer, sizeof(product->producer), 1, fp);
-    //     fread(&product->price, sizeof(product->price), 1, fp);
-    //     fread(&product->count, sizeof(product->count), 1, fp);
-    // }
-
     rc = fread(product, sizeof(*product), 1, fp);
     
     fseek(fp, seek_cur, SEEK_SET);
@@ -34,12 +26,20 @@ int read_struct(FILE *fp, product_t *product, int pos)
     return rc;
 }
 
-void input_struct(product_t *product)
+int input_struct(product_t *product)
 {
-    scanf("%s", product->name);
-    scanf("%s", product->producer);
-    scanf("%u", &product->price);
-    scanf("%u", &product->count);
+    int rc = OK;
+
+    if (scanf("%s", product->name) != 1)
+        rc = ERR;
+    if (scanf("%s", product->producer) != 1)
+        rc = ERR;
+    if (scanf("%u", &product->price) != 1)
+        rc = ERR;
+    if (scanf("%u", &product->count) != 1)
+        rc = ERR;
+    
+    return rc;
 }
 
 void print_struct(product_t *product)
@@ -77,7 +77,7 @@ int comparator(product_t *product1, product_t *product2)
     return res;
 }
 
-void copy(FILE *source, FILE *destination)
+int copy(FILE *source, FILE *destination)
 {
     product_t product = { { '\0' }, { '\0' }, 0, 0 };
     // product_t product;
@@ -88,6 +88,8 @@ void copy(FILE *source, FILE *destination)
         write_struct(destination, &product, pos);
         ++pos;
     }
+
+    return pos;
 }
 
 void swap_struct(FILE *fp, int pos1, int pos2)
@@ -102,7 +104,7 @@ void swap_struct(FILE *fp, int pos1, int pos2)
     write_struct(fp, &temp1, pos2);
 }
 
-void sort(FILE *fp)
+int sort(FILE *fp)
 {
     product_t temp1 = { { '\0' }, { '\0' }, 0, 0 }, temp2 = { { '\0' }, { '\0' }, 0, 0 };
     // product_t temp1, temp2;
@@ -124,9 +126,11 @@ void sort(FILE *fp)
 
         ++pos1;
     }
+
+    return pos1;
 }
 
-void print_file(FILE *fp)
+int print_file(FILE *fp)
 {
     product_t temp = { { '\0' }, { '\0' }, 0, 0 };
     // product_t temp;
@@ -137,6 +141,8 @@ void print_file(FILE *fp)
         print_struct(&temp);
         ++pos;
     }
+
+    return pos;
 }
 
 int check_name(product_t *product, char substr[])
@@ -157,7 +163,7 @@ int check_name(product_t *product, char substr[])
     return res;
 }
 
-void find_products_by_name(FILE *fp, char substr_name[])
+int find_products_by_name(FILE *fp, char substr_name[])
 {
     product_t temp = { { '\0' }, { '\0' }, 0, 0 };
     // product_t temp;
@@ -169,4 +175,6 @@ void find_products_by_name(FILE *fp, char substr_name[])
             print_struct(&temp);
         ++pos;
     }
+
+    return pos;
 }
