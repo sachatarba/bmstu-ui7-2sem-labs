@@ -20,41 +20,41 @@ int main(int argc, char *argv[])
 {
     int rc = ERR_OK;
 
-    // if (argc == ARGS_A_B && !strcmp(argv[ARGS_A_B - 3], FIRST_FLAG))
-    // {
-    //     FILE *source_file = fopen(argv[ARGS_A_B - 2], "rb");
+    if (argc == ARGS_A_B && !strcmp(argv[ARGS_A_B - 3], FIRST_FLAG))
+    {
+        FILE *source_file = fopen(argv[ARGS_A_B - 2], "rb");
 
-    //     if (source_file != NULL)
-    //     {
-    //         FILE *destination_file = fopen(argv[ARGS_A_B - 1], "r+b");
+        if (source_file != NULL && !feof(source_file))
+        {
+            FILE *destination_file = fopen(argv[ARGS_A_B - 1], "r+b");
 
-    //         if (destination_file != NULL)
-    //         {
-    //             if (copy(source_file, destination_file)) 
-    //             {
-    //                 sort(destination_file);
-    //                 // print_file(destination_file);
-    //             }
-    //             else
-    //             {
-    //                 rc = ERR_EMPTY_FILE;
-    //             }
+            if (destination_file != NULL)
+            {
+                if (copy(source_file, destination_file)) 
+                {
+                    sort(destination_file);
+                    // print_file(destination_file);
+                }
+                else
+                {
+                    rc = ERR_EMPTY_FILE;
+                }
 
-    //             fclose(destination_file);
-    //         }
-    //         else
-    //         {
-    //             rc = ERR_NO_FILE;
-    //         }
+                fclose(destination_file);
+            }
+            else
+            {
+                rc = ERR_NO_FILE;
+            }
 
-    //         fclose(source_file);
-    //     }
-    //     else
-    //     {
-    //         rc = ERR_NO_FILE;
-    //     }
-    // }
-    if (argc == ARGS_A_B && !strcmp(argv[ARGS_A_B - 3], SECOND_FLAG))
+            fclose(source_file);
+        }
+        else
+        {
+            rc = ERR_NO_FILE;
+        }
+    }
+    else if (argc == ARGS_A_B && !strcmp(argv[ARGS_A_B - 3], SECOND_FLAG))
     {
         FILE *fp = fopen(argv[ARGS_A_B - 2], "rb");
         

@@ -108,7 +108,7 @@ int sort(FILE *fp)
 {
     product_t temp1 = { { '\0' }, { '\0' }, 0, 0 }, temp2 = { { '\0' }, { '\0' }, 0, 0 };
     // product_t temp1, temp2;
-    int pos1, pos2 = 0;
+    int pos1 = 0, pos2 = 0;
 
     while (read_struct(fp, &temp1, pos1) == 1)
     {
