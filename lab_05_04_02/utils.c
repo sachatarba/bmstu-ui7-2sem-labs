@@ -5,10 +5,11 @@ void write_struct(FILE *fp, product_t *product, int pos)
 {
     long int seek_cur = ftell(fp);
     fseek(fp, sizeof(*product) * pos, SEEK_SET);
-    fwrite(product->name, sizeof(product->name), 1, fp);
-    fwrite(product->producer, sizeof(product->producer), 1, fp);
-    fwrite(&product->price, sizeof(product->price), 1, fp);
-    fwrite(&product->count, sizeof(product->count), 1, fp);
+    // fwrite(product->name, sizeof(product->name), 1, fp);
+    // fwrite(product->producer, sizeof(product->producer), 1, fp);
+    // fwrite(&product->price, sizeof(product->price), 1, fp);
+    // fwrite(&product->count, sizeof(product->count), 1, fp);
+    fwrite(product, sizeof(*product), 1, fp);
     fseek(fp, seek_cur, SEEK_SET);
 }
 
@@ -19,12 +20,14 @@ int read_struct(FILE *fp, product_t *product, int pos)
 
     fseek(fp, sizeof(*product) * pos, SEEK_SET);
 
-    if ((rc = fread(product->name, sizeof(product->name), 1, fp)) == 1)
-    {
-        fread(product->producer, sizeof(product->producer), 1, fp);
-        fread(&product->price, sizeof(product->price), 1, fp);
-        fread(&product->count, sizeof(product->count), 1, fp);
-    }
+    // if ((rc = fread(product->name, sizeof(product->name), 1, fp)) == 1)
+    // {
+    //     fread(product->producer, sizeof(product->producer), 1, fp);
+    //     fread(&product->price, sizeof(product->price), 1, fp);
+    //     fread(&product->count, sizeof(product->count), 1, fp);
+    // }
+
+    rc = fread(product, sizeof(*product), 1, fp);
     
     fseek(fp, seek_cur, SEEK_SET);
 
@@ -77,6 +80,7 @@ int comparator(product_t *product1, product_t *product2)
 void copy(FILE *source, FILE *destination)
 {
     product_t product = { { '\0' }, { '\0' }, 0, 0 };
+    // product_t product;
     int pos = 0;
 
     while (read_struct(source, &product, pos) == 1)
@@ -90,6 +94,7 @@ void swap_struct(FILE *fp, int pos1, int pos2)
 {
     product_t temp1 = { { '\0' }, { '\0' }, 0, 0 };
     product_t temp2 = { { '\0' }, { '\0' }, 0, 0 };
+    // product_t temp1, temp2;
 
     read_struct(fp, &temp1, pos1);
     read_struct(fp, &temp2, pos2);
@@ -100,6 +105,7 @@ void swap_struct(FILE *fp, int pos1, int pos2)
 void sort(FILE *fp)
 {
     product_t temp1 = { { '\0' }, { '\0' }, 0, 0 }, temp2 = { { '\0' }, { '\0' }, 0, 0 };
+    // product_t temp1, temp2;
     int pos1, pos2 = 0;
 
     while (read_struct(fp, &temp1, pos1) == 1)
@@ -123,6 +129,7 @@ void sort(FILE *fp)
 void print_file(FILE *fp)
 {
     product_t temp = { { '\0' }, { '\0' }, 0, 0 };
+    // product_t temp;
     int pos = 0;
 
     while (read_struct(fp, &temp, pos) == 1)
@@ -153,6 +160,7 @@ int check_name(product_t *product, char substr[])
 void find_products_by_name(FILE *fp, char substr_name[])
 {
     product_t temp = { { '\0' }, { '\0' }, 0, 0 };
+    // product_t temp;
     int pos = 0;
 
     while (read_struct(fp, &temp, pos) == 1)
