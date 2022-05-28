@@ -168,13 +168,17 @@ int find_products_by_name(FILE *fp, char substr_name[])
     product_t temp = { { '\0' }, { '\0' }, 0, 0 };
     // product_t temp;
     int pos = 0;
+    int count = 0;
 
     while (read_struct(fp, &temp, pos) == 1)
     {
         if (check_name(&temp, substr_name))
+        {
             print_struct(&temp);
+            ++count;
+        }
         ++pos;
     }
 
-    return pos;
+    return count;
 }
