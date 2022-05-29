@@ -1,5 +1,4 @@
 #include <string.h>
-#include <unistd.h>
 #include "utils.h"
 
 #define OK 1
@@ -186,12 +185,16 @@ int push_back_product(FILE *fp)
 {
     int rc = ERR;
 
-    product_t temp = { { '\0' }, { '\0' }, 0, 0 };
+    product_t temp;
+    for (int i = 0; i < SIZE; ++i)
+    {
+        ((char *) &temp)[i] = 'a';
+    }
 
     if ((rc = input_struct(&temp)))
     {
         fseek(fp, 0, SEEK_END);
-        fwrite(&temp, sizeof(temp), 1, fp);
+        fwrite(&temp, sizeof(product_t), 1, fp);
     }
 
     return rc;
@@ -203,12 +206,13 @@ int insert_product(FILE *fp)
 
     if ((rc = push_back_product(fp)))
     {
+        fseek(fp, 0, SEEK_END);
         long int pos = ftell(fp) / sizeof(product_t) - 1;
 
         product_t temp1 = { { '\0' }, { '\0' }, 0, 0 };
         product_t temp2 = { { '\0' }, { '\0' }, 0, 0 };
 
-        if (pos > 0 )
+        if (pos > 0)
         {
             if (read_struct(fp, &temp1, pos) == 1 && read_struct(fp, &temp2, pos - 1) == 1)
             {

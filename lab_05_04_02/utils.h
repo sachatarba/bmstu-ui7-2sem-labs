@@ -6,7 +6,7 @@
 #define LEN_NAME 31
 #define LEN_PRODUCER 16
 
-#define SIZE 53
+#define SIZE 56
 
 typedef struct
 {
