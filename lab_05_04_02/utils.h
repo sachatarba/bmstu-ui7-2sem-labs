@@ -37,3 +37,7 @@ int print_file(FILE *fp);
 int check_name(product_t *product, char substr[]);
 
 int find_products_by_name(FILE *fp, char substr_name[]);
+
+int push_back_product(FILE *fp);
+
+int insert_product(FILE *fp);

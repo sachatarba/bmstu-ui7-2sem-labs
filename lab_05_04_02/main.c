@@ -33,7 +33,6 @@ int main(int argc, char *argv[])
                 if (copy(source_file, destination_file)) 
                 {
                     sort(destination_file);
-                    // print_file(destination_file);
                 }
                 else
                 {
@@ -70,6 +69,24 @@ int main(int argc, char *argv[])
             else
             {
                 rc = ERR_WRONG_FLAGS;
+            }
+
+            fclose(fp);
+        }
+        else
+        {
+            rc = ERR_NO_FILE;
+        }
+    }
+    else if (argc == ARGS_C && !strcmp(argv[ARGS_C - 2], THIRD_FLAG))
+    {
+        FILE *fp = fopen(argv[ARGS_C - 1], "r+b");
+        
+        if (fp != NULL)
+        {
+            if (!insert_product(fp))
+            {
+                rc = ERR_EMPTY_FILE;
             }
 
             fclose(fp);
