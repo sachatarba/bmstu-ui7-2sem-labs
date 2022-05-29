@@ -84,7 +84,6 @@ int main(int argc, char *argv[])
         
         if (fp != NULL)
         {
-
             if (!insert_product(fp))
             {
                 rc = ERR_EMPTY_FILE;
