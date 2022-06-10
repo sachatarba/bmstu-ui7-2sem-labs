@@ -20,11 +20,9 @@ int process(FILE *f, int *maximum, int *second_maximum)
     while (fscanf(f, "%d", &number) == 1)
     {
         if (count == 0)
-           *maximum = number;
-
+            *maximum = number;
         else if (count == 1)
             *second_maximum = number;
-        
         else if (number > *second_maximum)
         {
             *second_maximum = number;
@@ -33,7 +31,6 @@ int process(FILE *f, int *maximum, int *second_maximum)
         }
 
         ++count;
-
     }
 
     if (count == 0 || count == 1)
