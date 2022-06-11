@@ -14,31 +14,44 @@
 
 #define NULL ((void *)0)
 
-int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number);
+int read_strings(char **array_strings, int strings_number);
 
-void split_string(char *string, char array_words[][MAX_WORD_LEN], int max_words, const char *delim, int *words_in_string);
+void split_string(char *string, char **array_words, int max_words, const char *delim, int *words_in_string);
 
-int word_count(char array_words[][MAX_WORD_LEN], int words_number, char *word);
+int word_count(char **array_words, int words_number, char *word);
 
-void make_unique_from_words1(char words1[][MAX_WORD_LEN], int words_number1, char words2[][MAX_WORD_LEN], int words_number2, char words_unique[][MAX_WORD_LEN], int *unique_words);
+void make_unique_from_words1(char **words1, int words_number1, char **words2, int words_number2, char **words_unique, int *unique_words);
 
-void make_unique_words(char words1[][MAX_WORD_LEN], int words_number1, char words2[][MAX_WORD_LEN], int words_number2, char words_unique[][MAX_WORD_LEN], int *unique_words);
+void make_unique_words(char **words1, int words_number1, char **words2, int words_number2, char **words_unique, int *unique_words);
 
-void print_words(char array_words[][MAX_WORD_LEN], int words_number);
+void print_words(char **array_words, int words_number);
+
+void transform(char **array_of_ptrs, char *buff, int size, int max_len);
 
 int main(void)
 {
     int rc = ERR_OK;
 
-    char array_strings[MAX_STRINGS][MAX_STRING_LEN] = { '\0' };
+    char array_strings_buff[MAX_STRINGS][MAX_STRING_LEN] = { '\0' };
+    char *array_strings[MAX_STRINGS] = { '\0' };
+    transform(array_strings, array_strings_buff[0], MAX_STRINGS, MAX_STRING_LEN);
 
     const char *delim = "\t\n\r .,:;!?-";
 
     if (read_strings(array_strings, MAX_STRINGS) == STRINGS_NUMBER)
     {
-        char words1[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
-        char words2[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
-        char words_unique[ALL_WORDS][MAX_WORD_LEN] = { '\0' };
+        char words1_buff[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
+        char words2_buff[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
+        char words_unique_buff[ALL_WORDS][MAX_WORD_LEN] = { '\0' };
+        
+        char *words1[MAX_WORDS] = { '\0' };
+        transform(words1, words1_buff[0], MAX_WORDS, MAX_WORD_LEN);
+
+        char *words2[MAX_WORDS] = { '\0' };
+        transform(words2, words2_buff[0], MAX_WORDS, MAX_WORD_LEN);
+
+        char *words_unique[MAX_WORDS] = { '\0' };
+        transform(words_unique, words_unique_buff[0], MAX_WORDS, MAX_WORD_LEN);
 
         int number_of_words1 = 0;
         int number_of_words2 = 0;
@@ -67,7 +80,15 @@ int main(void)
     return rc;   
 }
 
-void split_string(char *string, char array_words[][MAX_WORD_LEN], int max_words, const char *delim, int *words_in_string)
+void transform(char **array_of_ptrs, char *buff, int size, int max_len)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        array_of_ptrs[i] = buff + i * max_len;
+    }
+}
+
+void split_string(char *string, char **array_words, int max_words, const char *delim, int *words_in_string)
 {
     int current_word = 0;
 
@@ -94,7 +115,7 @@ void split_string(char *string, char array_words[][MAX_WORD_LEN], int max_words,
     *words_in_string = current_word;
 }
 
-int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number)
+int read_strings(char **array_strings, int strings_number)
 {
     int current_string = 0;
     int strings = 0;
@@ -112,7 +133,7 @@ int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number)
     return strings;
 }
 
-int word_count(char array_words[][MAX_WORD_LEN], int words_number, char *word)
+int word_count(char **array_words, int words_number, char *word)
 {
     int word_counter = 0;
 
@@ -127,7 +148,7 @@ int word_count(char array_words[][MAX_WORD_LEN], int words_number, char *word)
     return word_counter;
 }
 
-void make_unique_from_words1(char words1[][MAX_WORD_LEN], int words_number1, char words2[][MAX_WORD_LEN], int words_number2, char words_unique[][MAX_WORD_LEN], int *unique_words)
+void make_unique_from_words1(char **words1, int words_number1, char **words2, int words_number2, char **words_unique, int *unique_words)
 {
     int counter_word_in_arrays = 0;
     
@@ -144,13 +165,13 @@ void make_unique_from_words1(char words1[][MAX_WORD_LEN], int words_number1, cha
     }
 }
 
-void make_unique_words(char words1[][MAX_WORD_LEN], int words_number1, char words2[][MAX_WORD_LEN], int words_number2, char words_unique[][MAX_WORD_LEN], int *unique_words)
+void make_unique_words(char **words1, int words_number1, char **words2, int words_number2, char **words_unique, int *unique_words)
 {
     make_unique_from_words1(words1, words_number1, words2, words_number2, words_unique, unique_words);
     make_unique_from_words1(words2, words_number2, words1, words_number1, words_unique, unique_words);
 }
 
-void print_words(char words[][MAX_WORD_LEN], int words_number)
+void print_words(char **words, int words_number)
 {
     for (int current_word = 0; current_word < words_number; ++current_word)
     {

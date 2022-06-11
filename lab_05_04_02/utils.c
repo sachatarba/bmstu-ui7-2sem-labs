@@ -79,7 +79,9 @@ int comparator(product_t *product1, product_t *product2)
 
 int copy(FILE *source, FILE *destination)
 {
-    product_t product = { { '\0' }, { '\0' }, 0, 0 };
+    product_t product;
+    memset(&product, 0, sizeof(product_t));
+
     int pos = 0;
 
     while (read_struct(source, &product, pos) == 1)
@@ -93,8 +95,10 @@ int copy(FILE *source, FILE *destination)
 
 void swap_struct(FILE *fp, int pos1, int pos2)
 {
-    product_t temp1 = { { '\0' }, { '\0' }, 0, 0 };
-    product_t temp2 = { { '\0' }, { '\0' }, 0, 0 };
+    product_t temp1;
+    memset(&temp1, 0, sizeof(product_t));
+    product_t temp2;
+    memset(&temp2, 0, sizeof(product_t));
 
     read_struct(fp, &temp1, pos1);
     read_struct(fp, &temp2, pos2);
@@ -104,8 +108,10 @@ void swap_struct(FILE *fp, int pos1, int pos2)
 
 int sort(FILE *fp)
 {
-    product_t temp1 = { { '\0' }, { '\0' }, 0, 0 };
-    product_t temp2 = { { '\0' }, { '\0' }, 0, 0 };
+    product_t temp1;
+    memset(&temp1, 0, sizeof(product_t));
+    product_t temp2;
+    memset(&temp2, 0, sizeof(product_t));
 
     int pos1 = 0, pos2 = 0;
 
@@ -131,7 +137,8 @@ int sort(FILE *fp)
 
 int print_file(FILE *fp)
 {
-    product_t temp = { { '\0' }, { '\0' }, 0, 0 };
+    product_t temp;
+    memset(&temp, 0, sizeof(product_t));
     int pos = 0;
 
     while (read_struct(fp, &temp, pos) == 1)
@@ -163,7 +170,8 @@ int check_name(product_t *product, char substr[])
 
 int find_products_by_name(FILE *fp, char substr_name[])
 {
-    product_t temp = { { '\0' }, { '\0' }, 0, 0 };
+    product_t temp;
+    memset(&temp, 0, sizeof(product_t));
 
     int pos = 0;
     int count = 0;
@@ -186,10 +194,7 @@ int push_back_product(FILE *fp)
     int rc = ERR;
 
     product_t temp;
-    for (int i = 0; i < SIZE; ++i)
-    {
-        ((char *) &temp)[i] = 'a';
-    }
+    memset(&temp, 0, sizeof(product_t));
 
     if ((rc = input_struct(&temp)))
     {
@@ -209,8 +214,10 @@ int insert_product(FILE *fp)
         fseek(fp, 0, SEEK_END);
         long int pos = ftell(fp) / sizeof(product_t) - 1;
 
-        product_t temp1 = { { '\0' }, { '\0' }, 0, 0 };
-        product_t temp2 = { { '\0' }, { '\0' }, 0, 0 };
+        product_t temp1;
+        memset(&temp1, 0, sizeof(product_t));
+        product_t temp2;
+        memset(&temp2, 0, sizeof(product_t));
 
         if (pos > 0)
         {
