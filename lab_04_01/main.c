@@ -22,18 +22,31 @@ int test_strrchr(char *source_str, int source_symbol);
 
 int test_strpbrk(char *source_str1, char *source_str2);
 
-int test_all(char tests_source_str[][MAX_LEN], int str_number, char tests_source_chars[], int chars_number);
+int test_all(char **tests_source_str, int str_number, char *tests_source_chars, int chars_number);
+
+void transform(char **str_array, char *buff, int size, int max_len);
 
 int main(void)
 {
-    char source_str[][MAX_LEN] = { "hello, my friend", "\0", "k", "we live in a society", "o,im", "hell\0 no" };
+    char source_str[STR_TESTS][MAX_LEN] = { "hello, my friend", "\0", "k", "we live in a society", "o,im", "hell\0 no" };
+    char *str_array[STR_TESTS] = { 0 };
+    transform(str_array, source_str[0], STR_TESTS, MAX_LEN);
+
     char source_chars[] = { 'h', 'd', 'y', ' ', 'm', 'k', '\0' };
 
-    int failed_tests = test_all(source_str, STR_TESTS, source_chars, CHAR_TESTS);
+    int failed_tests = test_all(str_array, STR_TESTS, source_chars, CHAR_TESTS);
 
     printf("%d", failed_tests);
 
     return ERR_OK;   
+}
+
+void transform(char **str_array, char *buff, int size, int max_len)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        str_array[i] = buff + i * max_len;
+    }
 }
 
 char *my_strchr(const char *str, int symbol)
@@ -120,7 +133,7 @@ int test_strpbrk(char *source_str1, char *source_str2)
     return strpbrk(source_str1, source_str2) == my_strpbrk(source_str1, source_str2);
 }
 
-int test_all(char tests_source_str[][MAX_LEN], int str_number, char tests_source_chars[], int chars_number)
+int test_all(char **tests_source_str, int str_number, char *tests_source_chars, int chars_number)
 {
     int failed_tests = 0;
     int is_test_passed = 0;

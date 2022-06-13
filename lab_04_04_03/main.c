@@ -16,15 +16,15 @@
 
 #define NULL ((void *)0)
 
-int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number);
+int read_strings(char **array_strings, int strings_number);
 
-char *strip_chars_left(char string[], const char chars_to_remove[]);
+char *strip_chars_left(char *string, const char *chars_to_remove);
 
-char *strip_chars_right(char string[], const char chars_to_remove[]);
+char *strip_chars_right(char *string, const char *chars_to_remove);
 
-char *strip_chars(char string[], const char chars_to_remove[]);
+char *strip_chars(char *string, const char *chars_to_remove);
 
-int parce_number(char string[]);
+int parce_number(char *string);
 
 void set_phone_status_by_min_digits(char **string, int required_min_number_of_digits, int *is_mobile_number_status);
 
@@ -34,12 +34,15 @@ void set_phone_status_by_char(char **string, char required_char, int *is_mobile_
 
 int parce_number_withno_cntry_code(char **string, int *is_mobile_number_status);
 
+void transform(char **array_of_ptrs, char *buff, int size, int max_len);
+
 int main(void)
 {
     int rc = ERR_OK;
 
-    char array_strings[MAX_STRINGS][MAX_STRING_LEN] = { '\0' };
-
+    char array_strings_buff[MAX_STRINGS][MAX_STRING_LEN] = { '\0' };
+    char *array_strings[MAX_STRINGS] = { '\0' };
+    transform(array_strings, array_strings_buff[0], MAX_STRINGS, MAX_STRING_LEN);
 
     if (read_strings(array_strings, MAX_STRINGS) == STRINGS_NUMBER)
     {
@@ -63,7 +66,15 @@ int main(void)
     return rc;
 }
 
-int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number)
+void transform(char **array_of_ptrs, char *buff, int size, int max_len)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        array_of_ptrs[i] = buff + i * max_len;
+    }
+}
+
+int read_strings(char **array_strings, int strings_number)
 {
     int current_string = 0;
     int strings = 0;

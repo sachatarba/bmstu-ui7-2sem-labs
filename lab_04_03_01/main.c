@@ -14,27 +14,34 @@
 
 #define NULL ((void *)0)
 
-int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number);
+int read_strings(char **array_strings, int strings_number);
 
-void split_string(char *string, char array_words[][MAX_WORD_LEN], int max_words, const char *delim, int *words_in_string);
+void split_string(char *string, char **array_words, int max_words, const char *delim, int *words_in_string);
 
-char *modify_word(char word[]);
+char *modify_word(char *word);
 
-void make_string_from_words(char string[MAX_STRING_LEN], char words[][MAX_WORD_LEN], int words_number);
+void make_string_from_words(char *string, char **words, int words_number);
 
-void del_symbol(char string[], int del_index);
+void del_symbol(char *string, int del_index);
+
+void transform(char **array_of_ptrs, char *buff, int size, int max_len);
 
 int main(void)
 {
     int rc = ERR_OK;
 
-    char array_strings[MAX_STRINGS][MAX_STRING_LEN] = { '\0' };
+    char array_strings_buff[MAX_STRINGS][MAX_STRING_LEN] = { '\0' };
+    char *array_strings[MAX_STRINGS] = { '\0' };
+    transform(array_strings, array_strings_buff[0], MAX_STRINGS, MAX_STRING_LEN);
 
     const char *delim = "\t\n\r .,:;!?-";
 
     if (read_strings(array_strings, MAX_STRINGS) == STRINGS_NUMBER)
     {
-        char words[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
+        char words_buff[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
+        char *words[MAX_WORDS] = { '\0' };
+        transform(words, words_buff[0], MAX_WORDS, MAX_WORD_LEN);
+
         char ans_string[MAX_STRING_LEN] = { '\0' };
 
         int number_of_words = 0;
@@ -60,7 +67,15 @@ int main(void)
     return rc;
 }
 
-void split_string(char *string, char array_words[][MAX_WORD_LEN], int max_words, const char *delim, int *words_in_string)
+void transform(char **array_of_ptrs, char *buff, int size, int max_len)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        array_of_ptrs[i] = buff + i * max_len;
+    }
+}
+
+void split_string(char *string, char **array_words, int max_words, const char *delim, int *words_in_string)
 {
     int current_word = 0;
 
@@ -87,7 +102,7 @@ void split_string(char *string, char array_words[][MAX_WORD_LEN], int max_words,
     *words_in_string = current_word;
 }
 
-int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number)
+int read_strings(char **array_strings, int strings_number)
 {
     int current_string = 0;
     int strings = 0;
@@ -114,7 +129,7 @@ void del_symbol(char string[], int del_index)
     }
 }
 
-char *modify_word(char word[])
+char *modify_word(char *word)
 {
     char set_of_symbols[MAX_WORD_LEN] = { '\0' };
     int different_symbols = 0;
@@ -136,7 +151,7 @@ char *modify_word(char word[])
     return word;
 }
 
-void make_string_from_words(char string[MAX_STRING_LEN], char words[][MAX_WORD_LEN], int words_number)
+void make_string_from_words(char *string, char **words, int words_number)
 {
     int len = 0;
 
