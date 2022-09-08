@@ -10,11 +10,11 @@
 
 #define BUFF_SIZE 30
 
-int read_string(FILE *fp, char *buff, const char MAX_LEN)
+int read_string(FILE *fp, char *buff, const char max_len)
 {
     int rc = ERR_OK;
 
-    if (fgets(buff, MAX_LEN, fp) == NULL) 
+    if (fgets(buff, max_len, fp) == NULL) 
     {
         rc = ERR_READING;
     }
@@ -45,7 +45,22 @@ int parse_number(char *buffer, int *number)
     char *end;
     *number = (int) strtod(buffer, &end);
 
-    if (*end != '\r' && *end != '\n')
+    if (*end != '\r' && *end != '\n' && *end != '\0')
+    {
+        rc = ERR_READING;
+    }
+
+    return rc;
+}
+
+int parse_double(char *buffer, double *number)
+{
+    int rc = ERR_OK;
+
+    char *end;
+    *number = strtod(buffer, &end);
+
+    if (*end != '\r' && *end != '\n' && *end != '\0')
     {
         rc = ERR_READING;
     }

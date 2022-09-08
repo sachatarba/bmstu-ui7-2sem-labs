@@ -22,8 +22,7 @@ int main(int argc, char **argv)
     int rc = ERR_OK;
 
     if (argc == ARGS)
-    {
-        
+    {       
         FILE *fp = fopen(argv[1], "r");
         
         if (fp != NULL)
@@ -40,7 +39,8 @@ int main(int argc, char **argv)
                 {
                     for (size_t i = 0; i < size && (read_struct(fp, products + i) == ERR_OK); ++i);
 
-                    if (atof(argv[2]))
+                    double max_price = 0;
+                    if (parse_double(argv[2], &max_price) == ERR_OK && max_price >= 0)
                     {
                         if (find_all(products, size, atof(argv[2])) != ERR_OK)
                         {

@@ -19,4 +19,6 @@ int find_all(product_t *product, size_t products_numbers, double price);
 
 int parse_number(char *buffer, int *number);
 
-int read_string(FILE *fp, char *buff, const char MAX_LEN);
+int read_string(FILE *fp, char *buff, const char max_len);
+
+int parse_double(char *buffer, double *number);
