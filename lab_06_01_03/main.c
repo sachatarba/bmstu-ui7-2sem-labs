@@ -10,7 +10,7 @@
 #define ERR_BAD_FLAGS   3
 #define ERR_NO_FILE     4
 #define ERR_READING     5
-
+#define ERR_BAD_DATA    6
 #define MAX_SIZE 15
 
 #define NUMBER_SIZE 20
@@ -20,7 +20,6 @@
 int main(int argc, char **argv)
 {
     int rc = ERR_OK;
-
     if (argc == ARGS)
     {       
         FILE *fp = fopen(argv[1], "r");
@@ -37,10 +36,23 @@ int main(int argc, char **argv)
             {
                 if (size > 0 && size <= MAX_SIZE)
                 {
-                    for (size_t i = 0; i < size && (read_struct(fp, products + i) == ERR_OK); ++i);
+                    size_t i = 0;
+
+                    while (!feof(fp))
+                    {
+                        if (!read_struct(fp, products + i))
+                        {
+                            ++i;
+                        }
+                        else
+                        {
+                            rc = ERR_READING;
+                        }
+                    }
 
                     double max_price = 0;
-                    if (parse_double(argv[2], &max_price) == ERR_OK && max_price >= 0)
+
+                    if (rc != ERR_READING && parse_double(argv[2], &max_price) == ERR_OK && max_price >= 0)
                     {
                         if (find_all(products, size, atof(argv[2])) != ERR_OK)
                         {

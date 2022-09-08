@@ -22,3 +22,5 @@ int parse_number(char *buffer, int *number);
 int read_string(FILE *fp, char *buff, const char max_len);
 
 int parse_double(char *buffer, double *number);
+
+int is_string_whitespace(char *string);

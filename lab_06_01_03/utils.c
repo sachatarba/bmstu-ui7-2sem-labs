@@ -1,14 +1,30 @@
+#include <ctype.h>
 #include <stdlib.h>
 
 #include "utils.h"
 
-#define ERR_OK      0
-#define ERR_READING 1
-#define ERR_NO_DATA 2
-
-#define RADIX 10
+#define ERR_OK       0
+#define ERR_READING  1
+#define ERR_NO_DATA  2
+#define ERR_BAD_DATA 6
 
 #define BUFF_SIZE 30
+
+int is_string_whitespace(char *string)
+{
+    int rc = 1;
+
+    while (*string)
+    {
+        if (!isspace(*string))
+        {
+            rc = 0;
+        }
+        ++string;
+    }
+
+    return rc;
+}
 
 int read_string(FILE *fp, char *buff, const char max_len)
 {
@@ -26,13 +42,21 @@ int read_struct(FILE *fp, product_t *product)
 {
     int rc = ERR_OK;
 
-    rc = read_string(fp, product->name, LEN_NAME);
-
     char buff[BUFF_SIZE] = "\0";
 
-    if ((rc = read_string(fp, buff, BUFF_SIZE)) != ERR_READING)
+    read_string(fp, buff, LEN_NAME);
+    if (!is_string_whitespace(buff))
     {
-        rc = parse_number(buff, &product->price);
+        strcpy(product->name, buff);
+
+        if ((rc = read_string(fp, buff, BUFF_SIZE)) == ERR_OK)
+        {
+            rc = parse_number(buff, &product->price);
+        }
+        if (is_string_whitespace(buff))
+        {
+            rc = ERR_READING;
+        }
     }
 
     return rc;
