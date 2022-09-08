@@ -43,7 +43,7 @@ int parse_number(char *buffer, int *number)
     int rc = ERR_OK;
 
     char *end;
-    *number = strtol(buffer, &end, RADIX);
+    *number = (int) strtod(buffer, &end);
 
     if (*end != '\r' && *end != '\n')
     {

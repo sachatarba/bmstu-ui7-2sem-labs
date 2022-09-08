@@ -20,7 +20,8 @@ done
 
 for file_in in ../data/neg_*in.txt; do
     if [[ -f $file_out ]]; then 
-        if ./neg_case.sh "$file_in"; then
+        file_args=../data/neg_${file_in:12:2}_args.txt
+        if ./neg_case.sh "$file_in" "$file_args"; then
             echo "$file_in: passed"
         else
             echo "$file_in: failed"

@@ -8,13 +8,13 @@ if [[ -f $file_args ]]; then
 fi
 
 if [ -z "$(printenv USE_VALGRIND)" ]; then
-    if ! ../../app.exe "$args" < "$file_in"; then
+    if ! ../../app.exe $args < "$file_in"; then
         exit 0
     else
         exit 1
     fi
 else
-    if ! valgrind ../../app.exe "$args" < "$file_in"; then
+    if ! valgrind ../../app.exe $args < "$file_in"; then
         exit 0
     else
         exit 1
