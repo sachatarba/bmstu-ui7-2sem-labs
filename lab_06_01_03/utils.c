@@ -3,10 +3,11 @@
 
 #include "utils.h"
 
-#define ERR_OK       0
-#define ERR_READING  1
-#define ERR_NO_DATA  2
-#define ERR_BAD_DATA 6
+#define ERR_OK        0
+#define ERR_READING   1
+#define ERR_NO_DATA   2
+#define ERR_BAD_DATA  6
+#define ERR_BAD_PRICE 7
 
 #define BUFF_SIZE 30
 
@@ -52,6 +53,11 @@ int read_struct(FILE *fp, product_t *product)
         if ((rc = read_string(fp, buff, BUFF_SIZE)) == ERR_OK)
         {
             rc = parse_number(buff, &product->price);
+
+            if (product->price < 0)
+            {
+                rc = ERR_BAD_PRICE;
+            }
         }
         if (is_string_whitespace(buff))
         {
