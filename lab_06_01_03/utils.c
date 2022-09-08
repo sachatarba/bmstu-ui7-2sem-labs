@@ -68,12 +68,12 @@ int read_struct(FILE *fp, product_t *product)
     return rc;
 }
 
-int parse_number(char *buffer, int *number)
+int parse_number(char *buffer, long long *number)
 {
     int rc = ERR_OK;
 
     char *end;
-    *number = (int) strtod(buffer, &end);
+    *number = (long long) strtod(buffer, &end);
 
     if (*end != '\r' && *end != '\n' && *end != '\0')
     {
@@ -101,7 +101,7 @@ int parse_double(char *buffer, double *number)
 void print_struct(product_t *product)
 {
     printf("%s", product->name);
-    printf("%d\n", product->price);
+    printf("%lld\n", product->price);
 }
 
 int find_all(product_t *products, size_t products_number, double price)

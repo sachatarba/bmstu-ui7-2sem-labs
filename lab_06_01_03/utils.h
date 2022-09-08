@@ -8,7 +8,7 @@
 typedef struct
 {
     char name[LEN_NAME];
-    int price;
+    long long price;
 } product_t;
 
 int read_struct(FILE *fp, product_t *product);
@@ -17,7 +17,7 @@ void print_struct(product_t *product);
 
 int find_all(product_t *product, size_t products_numbers, double price);
 
-int parse_number(char *buffer, int *number);
+int parse_number(char *buffer, long long *number);
 
 int read_string(FILE *fp, char *buff, const char max_len);
 

@@ -32,7 +32,7 @@ int main(int argc, char **argv)
             size_t size = 0;
             char buff[NUMBER_SIZE] = "\0";
 
-            if ((rc = read_string(fp, buff, NUMBER_SIZE)) == ERR_OK && (rc = parse_number(buff, (int*) &size)) == ERR_OK)
+            if ((rc = read_string(fp, buff, NUMBER_SIZE)) == ERR_OK && (rc = parse_number(buff, (long long*) &size)) == ERR_OK)
             {
                 if (size > 0 && size <= MAX_SIZE)
                 {
