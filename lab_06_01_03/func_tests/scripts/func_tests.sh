@@ -4,8 +4,9 @@ for file_in in ../data/pos_*in.txt; do
     if [[ -f $file_in ]]; then
         for file_out in ../data/pos_*out.txt; do
             if [[ -f $file_out ]]; then
+                file_args=../data/pos_${file_in:12:2}_args.txt
                 if [[ ${file_in:12:2} -eq ${file_out:12:2} ]]; then 
-                    if ./pos_case.sh "$file_in" "$file_out"; then
+                    if ./pos_case.sh "$file_in" "$file_out" "$file_args"; then
                         echo "$file_in: passed"
                     else
                         echo "$file_out: failed"

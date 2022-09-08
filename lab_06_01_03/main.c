@@ -34,15 +34,15 @@ int main(int argc, char **argv)
             size_t size = 0;
             char buff[NUMBER_SIZE] = "\0";
 
-            if ((rc = read_string(fp, buff, NUMBER_SIZE)) == ERR_OK && (rc = parse_number(buff, (int*) &size) == ERR_OK))
+            if ((rc = read_string(fp, buff, NUMBER_SIZE)) == ERR_OK && (rc = parse_number(buff, (int*) &size)) == ERR_OK)
             {
                 if (size > 0 && size <= MAX_SIZE)
                 {
-                    for (size_t i = 0; i < size && (rc = read_struct(fp, products + i) == ERR_OK); ++i);
+                    for (size_t i = 0; i < size && (read_struct(fp, products + i) == ERR_OK); ++i);
 
                     if (atof(argv[2]))
                     {
-                        if (!find_all(products, size, atof(argv[2])))
+                        if (find_all(products, size, atof(argv[2])) != ERR_OK)
                         {
                             rc = ERR_NO_DATA;
                         } 
