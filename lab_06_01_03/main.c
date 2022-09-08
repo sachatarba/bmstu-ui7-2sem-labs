@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "utils.h"
 
@@ -8,6 +9,7 @@
 #define ERR_NO_DATA     2
 #define ERR_BAD_FLAGS   3
 #define ERR_NO_FILE     4
+#define ERR_READING     5
 
 #define MAX_SIZE 15
 
@@ -27,6 +29,8 @@ int main(int argc, char **argv)
         if (fp != NULL)
         {
             product_t products[MAX_SIZE];
+            memset(products, 0, sizeof(products));
+
             size_t size = 0;
             char buff[NUMBER_SIZE] = "\0";
 
@@ -36,15 +40,26 @@ int main(int argc, char **argv)
                 {
                     for (size_t i = 0; i < size && (rc = read_struct(fp, products + i) == ERR_OK); ++i);
 
-                    if (find_all(products, size, atoi(argv[2])))
+                    if (!atof(argv[2]))
                     {
-                        rc = ERR_NO_DATA; 
+                        if (!find_all(products, size, atof(argv[2])))
+                        {
+                            rc = ERR_NO_DATA;
+                        } 
+                    }
+                    else
+                    {
+                        rc = ERR_READING;
                     }
                 }
                 else
                 {
                     rc = ERR_BAD_SIZE;
                 }
+            }
+            else
+            {
+                rc = ERR_READING;
             }
 
             fclose(fp);

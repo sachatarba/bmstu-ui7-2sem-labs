@@ -59,7 +59,7 @@ void print_struct(product_t *product)
     printf("%d\n", product->price);
 }
 
-int find_all(product_t *products, size_t products_number, int price)
+int find_all(product_t *products, size_t products_number, double price)
 {
     int rc = ERR_NO_DATA;
 
