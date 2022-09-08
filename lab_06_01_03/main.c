@@ -40,7 +40,7 @@ int main(int argc, char **argv)
                 {
                     for (size_t i = 0; i < size && (rc = read_struct(fp, products + i) == ERR_OK); ++i);
 
-                    if (!atof(argv[2]))
+                    if (atof(argv[2]))
                     {
                         if (!find_all(products, size, atof(argv[2])))
                         {
