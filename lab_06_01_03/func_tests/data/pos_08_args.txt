@@ -1,1 +1,1 @@
-./funct_test/data/pos_08_in.txt 1e1
+./func_tests/data/pos_08_in.txt 1e1
