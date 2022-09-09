@@ -54,10 +54,7 @@ int main(int argc, char **argv)
 
                     if (rc != ERR_READING && parse_double(argv[2], &max_price) == ERR_OK && max_price >= 0)
                     {
-                        if (find_all(products, size, atof(argv[2])) != ERR_OK)
-                        {
-                            rc = ERR_NO_DATA;
-                        } 
+                        find_all(products, size, atof(argv[2]));
                     }
                     else
                     {
