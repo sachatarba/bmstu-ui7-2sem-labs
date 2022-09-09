@@ -1,1 +1,1 @@
-../data/neg_04_in.txt 9
+./funct_test/data/neg_04_in.txt 9
