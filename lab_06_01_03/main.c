@@ -11,6 +11,7 @@
 #define ERR_NO_FILE     4
 #define ERR_READING     5
 #define ERR_BAD_DATA    6
+
 #define MAX_SIZE 15
 
 #define NUMBER_SIZE 20
