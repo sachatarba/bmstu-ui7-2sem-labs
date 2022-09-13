@@ -15,7 +15,7 @@ int read_struct(FILE *fp, product_t *product);
 
 void print_struct(product_t *product);
 
-int find_all(product_t *product, size_t products_numbers, double price);
+int find_by_price(product_t *product, size_t products_numbers, double price);
 
 int parse_number(char *buffer, long long *number);
 

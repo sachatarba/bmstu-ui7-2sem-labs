@@ -38,7 +38,7 @@ int main(int argc, char **argv)
                 {
                     size_t i = 0;
 
-                    while (!feof(fp))
+                    while (i < size)
                     {
                         if (!read_struct(fp, products + i))
                         {
@@ -49,12 +49,16 @@ int main(int argc, char **argv)
                             rc = ERR_READING;
                         }
                     }
+                    if (!feof(fp))
+                    {
+                        rc = ERR_READING;
+                    }
 
                     double max_price = 0;
 
                     if (rc != ERR_READING && parse_double(argv[2], &max_price) == ERR_OK && max_price >= 0)
                     {
-                        find_all(products, size, atof(argv[2]));
+                        find_by_price(products, size, atof(argv[2]));
                     }
                     else
                     {
