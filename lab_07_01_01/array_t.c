@@ -50,16 +50,16 @@ int free_array(array_t *arr)
 int get_array_len(FILE *fp, array_t *arr)
 {
     error_t rc = OK;
-    int number = 0;
+    int num = 0;
 
-    while ((rc = read_number(fp, &number)) == OK)
+    while (fscanf(fp, "%d", &num) == 1)
     {
         ++arr->len;
     }
-
-    if (rc = ERR_EOF)
+    
+    if (!feof(fp))
     {
-        rc = OK;
+        rc = ERR_BAD_FILE_DATA;
     }
 
     return rc;
@@ -72,9 +72,13 @@ int read_array(FILE *fp, array_t *arr)
 
     while (i < arr->len)
     {
-        if ((rc = read_number(fp, (arr->p + i))) == OK)
+        if (fscanf(fp, "%d", (arr->p + i)) == 1)
         {
             ++i;
+        }
+        else
+        {
+            rc = ERR_READING;
         }
     }
 
@@ -87,6 +91,6 @@ int print_array_to_file(FILE *fp, array_t *arr)
 
     for (size_t i = 0; i < arr->len; ++i)
     {
-        // fprintf(fp, "%d\n", );
+        fprintf(fp, "%d ", *(arr->p + i));
     }
 }
