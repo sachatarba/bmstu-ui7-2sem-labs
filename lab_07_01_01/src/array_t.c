@@ -1,9 +1,9 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-#include "array_t.h"
-#include "utils.h"
-#include "error_t.h"
+#include "../inc/array_t.h"
+#include "../inc/utils.h"
+#include "../inc/error_t.h"
 
 int init_array(array_t *arr)
 {

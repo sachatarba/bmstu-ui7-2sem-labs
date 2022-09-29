@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "array_t.h"
-#include "process.h"
-#include "utils.h"
-#include "error_t.h"
+#include "../inc/array_t.h"
+#include "../inc/process.h"
+#include "../inc/utils.h"
+#include "../inc/error_t.h"
 
 #define KEY_FLAG "f"
 

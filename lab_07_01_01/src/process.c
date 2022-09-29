@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "process.h"
-#include "utils.h"
-#include "error_t.h"
+#include "../inc/process.h"
+#include "../inc/utils.h"
+#include "../inc/error_t.h"
 
 int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
 {
@@ -34,8 +34,6 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
     {
         rc = ERR_BAD_LEN;
     }
-
-    // free(*pb_dst);
 
     return rc;
 }

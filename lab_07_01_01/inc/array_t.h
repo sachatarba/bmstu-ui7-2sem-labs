@@ -11,7 +11,6 @@ struct array_t
 typedef struct array_t array_t;
 
 int get_array_len(FILE *fp, array_t *arr);
-// int get_len_from_file(FILE *fp, size_t len);
 
 int init_array(array_t *arr);
 
