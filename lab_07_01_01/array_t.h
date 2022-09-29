@@ -4,6 +4,7 @@
 struct array_t
 {
     int *p;
+    int *end;
     size_t len;
 };
 
@@ -18,6 +19,6 @@ int free_array(array_t *arr);
 
 int read_array(FILE *fp, array_t *arr);
 
-int print_array_to_file(FILE *fp, array_t *arr);
+void print_array_to_file(FILE *fp, array_t *arr);
 
 int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst);

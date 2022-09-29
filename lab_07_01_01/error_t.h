@@ -6,7 +6,10 @@ enum error_t
     ERR_BAD_FILE_DATA,
     ERR_READING,
     ERR_EOF,
-    ERR_ARR_OVERFLOW
+    ERR_ARR_OVERFLOW,
+    ERR_BAD_FLAG,
+    ERR_WRONG_FLAGS_COUNT,
+    ERR_NO_FILE
 };
 
 typedef enum error_t error_t;

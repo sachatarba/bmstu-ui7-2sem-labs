@@ -5,8 +5,6 @@
 #include "utils.h"
 #include "error_t.h"
 
-#define RADIX 10
-
 int init_array(array_t *arr)
 {
     error_t rc = OK;
@@ -51,6 +49,7 @@ int get_array_len(FILE *fp, array_t *arr)
 {
     error_t rc = OK;
     int num = 0;
+    arr->len = 0;
 
     while (fscanf(fp, "%d", &num) == 1)
     {
@@ -70,7 +69,7 @@ int read_array(FILE *fp, array_t *arr)
     error_t rc = OK;
     size_t i = 0;
 
-    while (i < arr->len)
+    while (i < arr->len && rc == OK)
     {
         if (fscanf(fp, "%d", (arr->p + i)) == 1)
         {
@@ -85,10 +84,8 @@ int read_array(FILE *fp, array_t *arr)
     return rc;
 }
 
-int print_array_to_file(FILE *fp, array_t *arr)
+void print_array_to_file(FILE *fp, array_t *arr)
 {
-    error_t rc = OK;
-
     for (size_t i = 0; i < arr->len; ++i)
     {
         fprintf(fp, "%d ", *(arr->p + i));
