@@ -16,7 +16,7 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
     size_t end_ind = min_ind > max_ind ? min_ind : max_ind;
     size_t len = end_ind - start_ind;
 
-    if (len > 0)
+    if (len > 0 && max_ind != min_ind)
     {
         if (create_array(pb_dst, pe_dst, len) == OK)
         {

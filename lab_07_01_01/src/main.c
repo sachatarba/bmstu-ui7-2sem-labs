@@ -48,7 +48,9 @@ int main(int argc, char **argv)
                             print_array_to_file(fout, &b);
                             
                             fclose(fout);
-                        } 
+                        }
+
+                        free_array(&b);
                     }
                     else
                     {
@@ -59,7 +61,11 @@ int main(int argc, char **argv)
 
                         fclose(fout);
                     }
+
+                    free_array(&a);
                 }
+
+                fclose(fin);
             }
             else
             {
@@ -71,24 +77,6 @@ int main(int argc, char **argv)
     {
         rc = ERR_WRONG_FLAGS_COUNT;
     }
-    // int arr[] = {2, 3, 10, 1, 5, 6, 7, 1, 9, 8};
-    // a.p = arr;
-    // a.len = sizeof(arr) / sizeof(*arr);
-    // int *pb = NULL;
-    // int *pe = NULL;
-    // error_t rc = key(arr, arr + a.len, &pb, &pe);
-
-    // int *p = pb;
-    // int i =0;
-    // while (p < pe)
-    // {
-    //     printf("%d", *p);
-    //     ++p;
-    // }
-
-    // free(pb);
-    // fclose(fin);
-    // fclose(fout);
     
     return rc;
 }
