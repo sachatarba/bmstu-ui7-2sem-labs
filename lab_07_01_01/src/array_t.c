@@ -61,6 +61,11 @@ int get_array_len(FILE *fp, array_t *arr)
         rc = ERR_BAD_FILE_DATA;
     }
 
+    if (arr->len == 0)
+    {
+        rc = ERR_BAD_LEN;
+    }
+
     return rc;
 }
 

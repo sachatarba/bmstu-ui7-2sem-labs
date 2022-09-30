@@ -9,30 +9,37 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
 {
     error_t rc = OK;
 
-    size_t min_ind = find_index_of_min(pb_src, pe_src);
-    size_t max_ind = find_index_of_max(pb_src, pe_src);
-
-    size_t start_ind = min_ind < max_ind ? min_ind + 1 : max_ind + 1;
-    size_t end_ind = min_ind > max_ind ? min_ind : max_ind;
-    size_t len = end_ind - start_ind;
-
-    if (len > 0 && max_ind != min_ind)
+    if (pb_src != NULL && pe_src != NULL)
     {
-        if (create_array(pb_dst, pe_dst, len) == OK)
+        size_t min_ind = find_index_of_min(pb_src, pe_src);
+        size_t max_ind = find_index_of_max(pb_src, pe_src);
+
+        size_t start_ind = min_ind < max_ind ? min_ind + 1 : max_ind + 1;
+        size_t end_ind = min_ind > max_ind ? min_ind : max_ind;
+        size_t len = end_ind - start_ind;
+
+        if (len > 0 && max_ind != min_ind)
         {
-            if (copy_array(pb_src + start_ind, pb_src + end_ind, *pb_dst, *pe_dst) != OK)
+            if (create_array(pb_dst, pe_dst, len) == OK)
             {
-                rc = ERR_ARR_OVERFLOW;
+                if (copy_array(pb_src + start_ind, pb_src + end_ind, *pb_dst, *pe_dst) != OK)
+                {
+                    rc = ERR_ARR_OVERFLOW;
+                }
+            }
+            else
+            {
+                rc = ERR_INV_PTR;
             }
         }
         else
         {
-            rc = ERR_INV_PTR;
+            rc = ERR_BAD_LEN;
         }
     }
     else
     {
-        rc = ERR_BAD_LEN;
+        rc = ERR_INV_PTR;
     }
 
     return rc;
