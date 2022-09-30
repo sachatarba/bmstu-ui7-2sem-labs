@@ -9,7 +9,7 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
 {
     error_t rc = OK;
 
-    if (pb_src != NULL && pe_src != NULL)
+    if (pb_src != NULL && pe_src != NULL && pb_src < pe_src)
     {
         size_t min_ind = find_index_of_min(pb_src, pe_src);
         size_t max_ind = find_index_of_max(pb_src, pe_src);
