@@ -1,5 +1,5 @@
 CC := gcc 
-CFLAGS := -std=c99 -Werror -Wall -Wpedantic -Wextra
+CFLAGS := -std=c99 -Werror -Wall -pedantic -Wextra
 
 OBJS := ./out/array_t.o ./out/process.o ./out/utils.o 
 # OBJS := array_t.o process.o utils.o
