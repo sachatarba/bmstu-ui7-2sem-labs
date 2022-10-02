@@ -1,4 +1,5 @@
 #include <check.h>
+#include <stdlib.h>
 
 #include "../inc/process.h"
 #include "../inc/utils.h"
@@ -19,6 +20,7 @@ START_TEST(test_key_regular)
     key(a_in, a_in + sizeof(a_in) / sizeof(a_in[0]), &pb, &pe);
 
     ck_assert_mem_eq(pb, a_res, sizeof(a_res));
+    free(pb);
 }
 END_TEST
 
@@ -33,6 +35,7 @@ START_TEST(test_key_two_mins)
     key(a_in, a_in + sizeof(a_in) / sizeof(a_in[0]), &pb, &pe);
 
     ck_assert_mem_eq(pb, a_res, sizeof(a_res));
+    free(pb);
 }
 END_TEST
 
@@ -47,6 +50,7 @@ START_TEST(test_key_two_max)
     key(a_in, a_in + sizeof(a_in) / sizeof(a_in[0]), &pb, &pe);
 
     ck_assert_mem_eq(pb, a_res, sizeof(a_res));
+    free(pb);
 }
 END_TEST
 
@@ -61,6 +65,7 @@ START_TEST(test_key_one)
     key(a_in, a_in + sizeof(a_in) / sizeof(a_in[0]), &pb, &pe);
 
     ck_assert_mem_eq(pb, a_res, sizeof(a_res));
+    free(pb);
 }
 END_TEST
 
@@ -75,6 +80,7 @@ START_TEST(test_key_max_then_min)
     key(a_in, a_in + sizeof(a_in) / sizeof(a_in[0]), &pb, &pe);
 
     ck_assert_mem_eq(pb, a_res, sizeof(a_res));
+    free(pb);
 }
 END_TEST
 
@@ -86,6 +92,7 @@ START_TEST(test_key_bad_ptrs)
     int *pe = NULL;
 
     ck_assert_int_ne(key(a_in, a_in + 2 * sizeof(int), &pb, &pe), OK);
+    free(pb);
 }
 END_TEST
 
@@ -97,6 +104,7 @@ START_TEST(test_key_pb_ge_pe)
     int *pe = NULL;
 
     ck_assert_int_ne(key(a_in + sizeof(a_in) / sizeof(a_in[0]), a_in, &pb, &pe), OK);
+    free(pb);
 }
 END_TEST
 
@@ -108,6 +116,7 @@ START_TEST(test_key_no_data)
     int *pe = NULL;
 
     ck_assert_int_ne(key(a_in + sizeof(a_in) / sizeof(a_in[0]), a_in, &pb, &pe), OK);
+    free(pb);
 }
 END_TEST
 
