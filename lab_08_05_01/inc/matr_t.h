@@ -28,4 +28,8 @@ error_t read_matr(matr_t *matr);
 
 error_t print_matr(matr_t *matr);
 
+error_t del_row(matr_t *matr, size_t row_ind);
+
+error_t del_col(matr_t *matr, size_t col_ind);
+
 #endif

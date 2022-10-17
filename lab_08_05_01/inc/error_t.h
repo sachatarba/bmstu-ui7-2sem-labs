@@ -9,7 +9,9 @@ enum error
     ERR_INV_PTR,
     ERR_READING,
     ERR_INV_STRUCT_PTR,
-    ERR_ALLOC_MATR
+    ERR_ALLOC_MATR,
+    ERR_BAD_ROW_IND,
+    ERR_BAD_COL_IND
 };
 
 typedef enum error error_t;

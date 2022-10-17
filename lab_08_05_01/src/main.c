@@ -5,9 +5,11 @@
 int main(void)
 {
     matr_t matr;
-    create_matr(&matr, 5, 5);
+    // create_matr(&matr, 2, 3);
     read_matr(&matr);
+    del_col(&matr, 1);
     print_matr(&matr);
+    free_matr(&matr);
 
     return 0;
 }
