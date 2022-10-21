@@ -1,12 +1,12 @@
 CC := gcc 
-CFLAGS := -std=c99 -Werror -Wall -pedantic -Wextra
+CFLAGS := -std=c99 -Werror -Wall -pedantic -Wextra -g3
 CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
 
-OBJS := ./out/matr_t.o #./out/process.o ./out/utils.o 
+OBJS := ./out/matr_t.o ./out/utils.o ./out/process.o 
 OBJS_CHECK :=  $(OBJS) ./unit_tests/out/check_process.o
 
 app.exe : $(OBJS) ./out/main.o
-	$(CC) $^ -o app.exe
+	$(CC) $^ -lm -o app.exe
 
 unit_tests.exe : $(OBJS_CHECK) 
 	$(CC) $^ $(CHECK_FLAGS) -o unit_tests.exe
