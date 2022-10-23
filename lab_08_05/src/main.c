@@ -28,7 +28,6 @@ int main(void)
                         {
                             if (rho >= 0 && gamma >= 0)
                             {
-
                                 matr_t pow_l, pow_r, res;
                                 memset(&res, 0, sizeof(matr_t));
                                 pow_matr(&l, &pow_l, rho);
@@ -45,6 +44,10 @@ int main(void)
                             {
                                 rc = ERR_BAD_POWS;
                             }
+                        }
+                        else
+                        {
+                            rc = ERR_NO_POWERS;
                         }
                     }
                 }
