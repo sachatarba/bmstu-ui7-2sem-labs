@@ -8,6 +8,23 @@
 
 #define OK 0
 
+Suite* funcs_to_find(void);
+
+int main(void)
+{
+    int no_failed = 0;
+    Suite *s;
+    SRunner *runner;
+
+    s = funcs_to_find();
+    runner = srunner_create(s);
+    srunner_run_all(runner, CK_VERBOSE);
+    no_failed = srunner_ntests_failed(runner);
+    srunner_free(runner);
+
+    return (no_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
+}
+
 START_TEST(test_find_max_1)
 {
     long long arr[] = { 1, 2, 3, 4, 5 };
@@ -160,14 +177,12 @@ START_TEST(test_geometric_mean_3)
 END_TEST
 
 
-Suite* calc_avg_suite(void)
+Suite* funcs_to_find(void)
 {
     Suite *s;
-    // TCase *tc_neg;
     TCase *tc_pos;
 
-    // Создадим тестовый набор для тестирования функции calc_avg
-    s = suite_create("key");
+    s = suite_create("finds_funcs");
     
     tc_pos = tcase_create("positives");
     // Добавим в tc_pos соответствующие функции-тесты
@@ -178,27 +193,9 @@ Suite* calc_avg_suite(void)
     tcase_add_test(tc_pos, test_geometric_mean_1);
     tcase_add_test(tc_pos, test_geometric_mean_2);
     tcase_add_test(tc_pos, test_geometric_mean_3);
-    // tcase_add_test(tc_pos, test_mysort_random_arr);
-    // tcase_add_test(tc_pos, test_mysort_one_elm);
+
     // Добавим сформированный тестовый случай в тестовый набор
     suite_add_tcase(s, tc_pos);
 
     return s;
-}
-
-
-int main(void)
-{
-    int no_failed = 0;
-    Suite *s;
-    SRunner *runner;
-
-    s = calc_avg_suite();
-    runner = srunner_create(s);
-    srunner_run_all(runner, CK_VERBOSE);
-    no_failed = srunner_ntests_failed(runner);
-    srunner_free(runner);
-
-    return (no_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
-}
-    
+}   

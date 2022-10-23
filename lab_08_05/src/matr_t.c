@@ -208,13 +208,14 @@ error_t del_row(matr_t *matr, size_t row_ind)
             if (matr->body != NULL)
             {
                 free(matr->body[row_ind]);
-                for (size_t cur_row = row_ind; cur_row < matr->rows - 1; ++cur_row)
+                for (size_t cur_row = row_ind; cur_row < matr->rows_allocated - 1; ++cur_row)
                 {
                     matr->body[cur_row] = matr->body[cur_row + 1];
                 }
                 
-                matr->body[matr->rows - 1] = NULL;
+                matr->body[matr->rows_allocated - 1] = NULL;
                 --matr->rows;
+                --matr->rows_allocated;
             }
             else
             {
