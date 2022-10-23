@@ -40,7 +40,7 @@ error_t crop_matr_to_square(matr_t *matr)
     return rc;
 }
 
-error_t geometric_mean_of_cols(matr_t *matr, double *arr)
+error_t geometric_mean_of_cols(matr_t *matr, long long *arr)
 {
     error_t rc = OK;
 
@@ -49,7 +49,7 @@ error_t geometric_mean_of_cols(matr_t *matr, double *arr)
         if (arr != NULL)
         {            
             // Стоит ли выделять память в этой функции?
-            double geometric_mean;
+            long long geometric_mean;
 
             for (size_t cur_col = 0; cur_col < matr->cols; ++cur_col)
             {
@@ -78,9 +78,9 @@ error_t geometric_mean_of_cols(matr_t *matr, double *arr)
     return rc;
 } 
 
-double find_max(double *arr, size_t size)
+long long find_max(long long *arr, size_t size)
 {
-    double max = arr[0];
+    long long max = arr[0];
 
     for (size_t i = 0; i < size; ++i)
     {
@@ -93,7 +93,7 @@ double find_max(double *arr, size_t size)
     return max;
 }
 
-error_t find_max_of_rows(matr_t *matr, double *arr)
+error_t find_max_of_rows(matr_t *matr, long long *arr)
 {
     error_t rc = OK;
 
@@ -128,7 +128,7 @@ error_t expand_to_bigger_matrix(matr_t *l, matr_t *r)
         matr_t *to_expand = l->rows < r->rows ? l : r;
         matr_t *bigger_matr = l->rows > r->rows ? l : r;
 
-        double *temp = malloc(sizeof(double) * bigger_matr->rows);
+        long long *temp = malloc(sizeof(long long) * bigger_matr->rows);
 
         if (temp != NULL)
         {

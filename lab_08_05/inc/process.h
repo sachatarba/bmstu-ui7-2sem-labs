@@ -9,9 +9,9 @@ error_t crop_matr_to_square(matr_t *matr);
 
 error_t expand_to_bigger_matrix(matr_t *l, matr_t *r);
 
-error_t geometric_mean_of_cols(matr_t *matr, double *arr);
+error_t geometric_mean_of_cols(matr_t *matr, long long *arr);
 
-error_t find_max_of_rows(matr_t *matr, double *arr);
+error_t find_max_of_rows(matr_t *matr, long long *arr);
 
 error_t expand_to_bigger_matrix(matr_t *l, matr_t *r);
 

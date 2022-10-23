@@ -15,10 +15,10 @@ int main(void)
     if ((rc = read_matr(&l)) == OK)
     {
         if ((rc = read_matr(&r)) == OK)
-        {                                             // 2  and 2 3 | 5 6
-            if ((rc = crop_matr_to_square(&l)) == OK) // 2 | 2 and 2 3 | 5 6
+        {                                             
+            if ((rc = crop_matr_to_square(&l)) == OK)
             {
-                if ((rc = crop_matr_to_square(&r)) == OK) // 2 2 | 2 2
+                if ((rc = crop_matr_to_square(&r)) == OK)
                 {
                     if ((rc = expand_to_bigger_matrix(&l, &r)) == OK)
                     {
@@ -46,8 +46,6 @@ int main(void)
 
                                 print_matr(&res);
 
-                                free_matr(&l);
-                                free_matr(&r);
                                 free_matr(&res);
                             }
                             else
@@ -58,7 +56,11 @@ int main(void)
                     }
                 }
             }
+
+            free_matr(&r);
         }
+
+        free_matr(&l);
     }
 
     return rc;

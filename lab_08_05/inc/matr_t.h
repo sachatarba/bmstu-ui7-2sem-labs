@@ -7,7 +7,7 @@
 
 struct matr
 {
-    double **body;
+    long long **body;
 
     size_t rows;
     size_t cols;
@@ -34,9 +34,9 @@ error_t del_row(matr_t *matr, size_t row_ind);
 
 error_t del_col(matr_t *matr, size_t col_ind);
 
-error_t append_row(matr_t *matr, double *row);
+error_t append_row(matr_t *matr, long long *row);
 
-error_t append_col(matr_t *matr, double *col);
+error_t append_col(matr_t *matr, long long *col);
 
 error_t mul_matr(matr_t *l, matr_t *r, matr_t *res);
 

@@ -19,14 +19,14 @@ error_t create_matr(matr_t *matr, size_t rows, size_t cols)
     {
         if (rows > 0 && cols > 0)
         {
-            matr->body = calloc(rows * RESIZE, sizeof(double*));
+            matr->body = calloc(rows * RESIZE, sizeof(long long*));
 
             if (matr->body != NULL)
             {
                 for (size_t i = 0; i < rows * RESIZE; ++i)
                 {
-                    matr->body[i] = calloc(cols * RESIZE, sizeof(double));
-                    // memset(matr->body[i], 0, sizeof(double) * RESIZE + 1);
+                    matr->body[i] = calloc(cols * RESIZE, sizeof(long long));
+                    // memset(matr->body[i], 0, sizeof(long long) * RESIZE + 1);
 
                     if (matr->body[i] == NULL)
                     {
@@ -41,6 +41,10 @@ error_t create_matr(matr_t *matr, size_t rows, size_t cols)
                     matr->cols = cols;
                     matr->cols_allocated = cols * RESIZE;
                     matr->alloc_resize = RESIZE; 
+                }
+                else
+                {
+                    free_matr(matr);
                 }
             }
             else
@@ -121,11 +125,16 @@ error_t read_matr(matr_t *matr)
                     {
                         for (size_t cur_col = 0; cur_col < matr->cols; ++cur_col)
                         {
-                            if (scanf("%lf", &matr->body[cur_row][cur_col]) != 1)
+                            if (scanf("%lld", &matr->body[cur_row][cur_col]) != 1)
                             {
                                 rc = ERR_READING;
                             }
                         }
+                    }
+
+                    if (rc != OK)
+                    {
+                        free_matr(matr);
                     }
                 }
             }
@@ -167,7 +176,7 @@ error_t print_matr(matr_t *matr)
                     {
                         if (matr->body[cur_row] != NULL)
                         {
-                            printf("%lld ", (long long) matr->body[cur_row][cur_col]);
+                            printf("%lld ", matr->body[cur_row][cur_col]);
                         }
                     }
 
@@ -276,8 +285,8 @@ error_t resize_matr(matr_t *matr, size_t new_rows_size, size_t new_cols_size)
             if (new_rows_size > 0 && new_cols_size > 0)
             {
                 // TODO: добавить проверку на то, что размер изменился
-                double **temp = realloc(matr->body, new_rows_size * sizeof(double*));
-                // memset(temp, 0, new_rows_size * sizeof(double*));
+                long long **temp = realloc(matr->body, new_rows_size * sizeof(long long*));
+                // memset(temp, 0, new_rows_size * sizeof(long long*));
 
                 if (temp != NULL)
                 {
@@ -335,7 +344,7 @@ error_t resize_matr(matr_t *matr, size_t new_rows_size, size_t new_cols_size)
     return rc;
 }
 
-error_t append_row(matr_t *matr, double *row)
+error_t append_row(matr_t *matr, long long *row)
 {
     error_t rc = OK;
 
@@ -345,14 +354,14 @@ error_t append_row(matr_t *matr, double *row)
         {
             if (matr->rows < matr->rows_allocated)
             {
-                memcpy(matr->body[matr->rows], row, sizeof(double) * matr->cols);
+                memcpy(matr->body[matr->rows], row, sizeof(long long) * matr->cols);
                 ++matr->rows;
             }
             else
             {
                 if ((rc = resize_matr(matr, matr->rows_allocated * matr->alloc_resize, matr->cols_allocated)) == OK)
                 {
-                    memcpy(matr->body[matr->rows], row, sizeof(double) * matr->cols);
+                    memcpy(matr->body[matr->rows], row, sizeof(long long) * matr->cols);
                     ++matr->rows;
                 }
             }
@@ -370,7 +379,7 @@ error_t append_row(matr_t *matr, double *row)
     return rc;
 }
 
-error_t append_col(matr_t *matr, double *col)
+error_t append_col(matr_t *matr, long long *col)
 {
     error_t rc = OK;
 
@@ -461,7 +470,7 @@ error_t find_min_of_matr(matr_t *matr, size_t *row, size_t *col)
 
     if (matr != NULL)
     {
-        double min = matr->body[0][0];
+        long long min = matr->body[0][0];
 
         for (size_t i = 0; i < matr->rows; ++i)
         {

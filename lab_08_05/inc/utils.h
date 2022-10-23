@@ -5,8 +5,8 @@
 
 #include "../inc/error_t.h"
 
-error_t realloc_array(double **arr, size_t new_size);
+error_t realloc_array(long long **arr, size_t new_size);
 
-error_t alloc_array(double **arr, size_t size);
+error_t alloc_array(long long **arr, size_t size);
 
 #endif

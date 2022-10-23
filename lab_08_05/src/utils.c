@@ -5,15 +5,15 @@
 #include "../inc/utils.h"
 #include "../inc/error_t.h"
 
-error_t realloc_array(double **arr, size_t new_size)
+error_t realloc_array(long long **arr, size_t new_size)
 {
     error_t rc = OK;
 
-    double *temp_arr = NULL;
+    long long *temp_arr = NULL;
     
     if (new_size > 0)
     {
-        temp_arr = realloc(*arr, new_size * sizeof(double));
+        temp_arr = realloc(*arr, new_size * sizeof(long long));
     }
     else
     {
@@ -32,11 +32,11 @@ error_t realloc_array(double **arr, size_t new_size)
     return rc;
 }
 
-error_t alloc_array(double **arr, size_t size)
+error_t alloc_array(long long **arr, size_t size)
 {
     error_t rc = OK;
 
-    double *temp_arr = malloc(size * sizeof(double));
+    long long *temp_arr = malloc(size * sizeof(long long));
 
     if (temp_arr != NULL)
     {
