@@ -93,6 +93,10 @@ error_t free_matr(matr_t *matr)
 
             free(matr->body);
             matr->body = NULL;
+            matr->rows = 0;
+            matr->cols = 0;
+            matr->rows_allocated = 0;
+            matr->cols_allocated = 0;
         }
         else
         {
@@ -422,6 +426,34 @@ error_t append_col(matr_t *matr, long long *col)
     return rc;
 }
 
+error_t copy_matr(matr_t *dst, matr_t *src)
+{
+    error_t rc = OK;
+
+    if (dst != NULL && src != NULL)
+    {
+        free_matr(dst);
+        rc = create_matr(dst, src->rows, src->cols);
+
+        if (rc == OK)
+        {
+            for (size_t i = 0; i < dst->rows; ++i)
+            {
+                for (size_t j = 0; j < dst->cols; ++j)
+                {
+                    dst->body[i][j] = src->body[i][j];
+                }
+            }
+        }
+    }
+    else
+    {
+        rc = ERR_INV_STRUCT_PTR;
+    }
+
+    return rc;
+}
+
 error_t mul_matr(matr_t *l, matr_t *r, matr_t *res)
 {
     error_t rc = OK;
@@ -431,6 +463,7 @@ error_t mul_matr(matr_t *l, matr_t *r, matr_t *res)
         if (l->cols == r->rows)
         {
             matr_t temp;
+            
             rc = create_matr(&temp, l->rows, r->cols);
 
             if (rc == OK)
@@ -441,14 +474,15 @@ error_t mul_matr(matr_t *l, matr_t *r, matr_t *res)
                     {
                         temp.body[i][j] = 0;
                         
-                        for (size_t k = 0; k < l->cols; k++)
+                        for (size_t k = 0; k < l->cols; ++k)
                         {
                             temp.body[i][j] += l->body[i][k] * r->body[k][j];
                         }
                     }
                 }
 
-                *res = temp;
+                copy_matr(res, &temp);
+                free_matr(&temp);
             }
         }
         else

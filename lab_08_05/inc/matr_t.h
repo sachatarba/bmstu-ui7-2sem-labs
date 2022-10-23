@@ -42,4 +42,6 @@ error_t mul_matr(matr_t *l, matr_t *r, matr_t *res);
 
 error_t find_min_of_matr(matr_t *matr, size_t *row, size_t *col);
 
+error_t copy_matr(matr_t *dst, matr_t *src);
+
 #endif

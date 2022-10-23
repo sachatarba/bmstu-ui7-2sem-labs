@@ -15,4 +15,8 @@ error_t find_max_of_rows(matr_t *matr, long long *arr);
 
 error_t expand_to_bigger_matrix(matr_t *l, matr_t *r);
 
+error_t pow_matr(matr_t *matr, matr_t *res, size_t power);
+
+error_t make_identity_matr(matr_t *matr, size_t rows, size_t cols);
+
 #endif

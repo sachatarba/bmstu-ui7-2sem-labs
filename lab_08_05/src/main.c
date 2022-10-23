@@ -28,25 +28,18 @@ int main(void)
                         {
                             if (rho >= 0 && gamma >= 0)
                             {
-                                matr_t pow_l = l;
-                                matr_t pow_r = r;
 
-                                for (size_t i = 0; i < (size_t) rho - 1; ++i)
-                                {
-                                    mul_matr(&pow_l, &l, &pow_l);
-                                }
-
-                                for (size_t j = 0; j < (size_t) gamma - 1; ++j)
-                                {
-                                    mul_matr(&pow_r, &r, &pow_r);
-                                }
-
-                                matr_t res;
+                                matr_t pow_l, pow_r, res;
+                                memset(&res, 0, sizeof(matr_t));
+                                pow_matr(&l, &pow_l, rho);
+                                pow_matr(&r, &pow_r, gamma);
                                 mul_matr(&pow_l, &pow_r, &res);
 
                                 print_matr(&res);
 
                                 free_matr(&res);
+                                free_matr(&pow_l);
+                                free_matr(&pow_r);
                             }
                             else
                             {

@@ -15,7 +15,8 @@ enum error
     ERR_REALLOC,
     ERR_ALLOC,
     ERR_MUL_MTR,
-    ERR_BAD_POWS
+    ERR_BAD_POWS,
+    ERR_SIZE
 };
 
 typedef enum error error_t;
