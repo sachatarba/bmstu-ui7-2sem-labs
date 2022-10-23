@@ -19,4 +19,6 @@ error_t pow_matr(matr_t *matr, matr_t *res, size_t power);
 
 error_t make_identity_matr(matr_t *matr, size_t rows, size_t cols);
 
+long long find_max(long long *arr, size_t size);
+
 #endif
