@@ -56,7 +56,6 @@ error_t create_matr(matr_t *matr, size_t rows, size_t cols)
         {
             rc = ERR_BAD_COLS;
         }
-
     }
     else
     {
@@ -168,7 +167,7 @@ error_t print_matr(matr_t *matr)
                     {
                         if (matr->body[cur_row] != NULL)
                         {
-                            printf("%lf ", matr->body[cur_row][cur_col]);
+                            printf("%lld ", (long long) matr->body[cur_row][cur_col]);
                         }
                     }
 
@@ -427,13 +426,13 @@ error_t mul_matr(matr_t *l, matr_t *r, matr_t *res)
 
             if (rc == OK)
             {
-                for(size_t i = 0; i < l->rows; ++i)
+                for (size_t i = 0; i < l->rows; ++i)
                 {
-                    for(size_t j = 0; j < r->cols; ++j)
+                    for (size_t j = 0; j < r->cols; ++j)
                     {
                         temp.body[i][j] = 0;
                         
-                        for(size_t k = 0; k < l->cols; k++)
+                        for (size_t k = 0; k < l->cols; k++)
                         {
                             temp.body[i][j] += l->body[i][k] * r->body[k][j];
                         }

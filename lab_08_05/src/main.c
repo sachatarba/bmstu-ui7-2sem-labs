@@ -15,10 +15,10 @@ int main(void)
     if ((rc = read_matr(&l)) == OK)
     {
         if ((rc = read_matr(&r)) == OK)
-        {
-            if ((rc = crop_matr_to_square(&l)) == OK)
+        {                                             // 2  and 2 3 | 5 6
+            if ((rc = crop_matr_to_square(&l)) == OK) // 2 | 2 and 2 3 | 5 6
             {
-                if ((rc = crop_matr_to_square(&r)) == OK)
+                if ((rc = crop_matr_to_square(&r)) == OK) // 2 2 | 2 2
                 {
                     if ((rc = expand_to_bigger_matrix(&l, &r)) == OK)
                     {

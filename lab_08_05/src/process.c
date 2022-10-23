@@ -125,7 +125,7 @@ error_t expand_to_bigger_matrix(matr_t *l, matr_t *r)
 
     if (l != NULL && r != NULL)
     {
-        matr_t *to_expand =  l->rows < r->rows ? l : r;
+        matr_t *to_expand = l->rows < r->rows ? l : r;
         matr_t *bigger_matr = l->rows > r->rows ? l : r;
 
         double *temp = malloc(sizeof(double) * bigger_matr->rows);
