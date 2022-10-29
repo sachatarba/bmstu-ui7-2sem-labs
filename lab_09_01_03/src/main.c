@@ -26,7 +26,7 @@ int main(int argc, char **argv)
             {
                 if (size > 0)
                 {
-                    product_t *products = malloc(sizeof(product_t) * size);
+                    product_t *products = calloc(sizeof(product_t), size);
 
                     if (products != NULL)
                     {
