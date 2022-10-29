@@ -1,7 +1,7 @@
+#define _GNU_SOURCE
+
 #include <ctype.h>
 #include <stdlib.h>
-
-#define _GNU_SOURCE
 
 #include <stdio.h>
 #include <string.h>
