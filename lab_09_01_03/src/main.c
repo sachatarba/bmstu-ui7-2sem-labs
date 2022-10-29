@@ -73,14 +73,14 @@ int main(int argc, char **argv)
                 {
                     rc = ERR_BAD_SIZE;
                 }
-
-                free(buff);
-                fclose(fp);
             }
             else
             {
                 rc = ERR_READING;
             }
+
+            free(buff);
+            fclose(fp);
         }
         else
         {
