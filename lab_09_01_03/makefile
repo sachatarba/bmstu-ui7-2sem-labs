@@ -3,7 +3,7 @@ CFLAGS := -std=gnu99 -Werror -Wall -pedantic -Wextra -g3
 CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
 
 OBJS := ./out/utils.o ./out/product_t.o
-OBJS_CHECK :=  $(OBJS) ./unit_tests/out/check_process.o
+OBJS_CHECK :=  $(OBJS) ./unit_tests/out/check_utils.o
 
 app.exe : $(OBJS) ./out/main.o
 	$(CC) $^ -lm -o app.exe
