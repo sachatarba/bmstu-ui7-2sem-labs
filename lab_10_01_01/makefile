@@ -2,7 +2,7 @@ CC := gcc
 CFLAGS := -std=c99 -Werror -Wall -pedantic -Wextra
 CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
 
-OBJS := ./out/node_t.o
+OBJS := ./out/node_t.o ./out/comparator.o
 OBJS_CHECK :=  $(OBJS) ./unit_tests/out/check_process.o
 
 app.exe : $(OBJS) ./out/main.o
@@ -19,7 +19,11 @@ unit_tests.exe : $(OBJS_CHECK)
 
 .PHONY: clean build run build_units run_units
 
-build : app.exe
+debug : CFLAGS += -g3
+debug : app.exe
+
+release : CFLAGS += -DNDEBUG -g0
+release : app.exe
 
 build_units : unit_tests.exe
 	

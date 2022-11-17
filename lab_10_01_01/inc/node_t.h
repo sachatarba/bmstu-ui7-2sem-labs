@@ -9,6 +9,8 @@ struct node
     node_t *next;
 };
 
+void push(node_t **head);
+
 void *pop_back(node_t **head);
 
 node_t *find(node_t *head, const void *data, int (*comparator)(const void *, const void *));

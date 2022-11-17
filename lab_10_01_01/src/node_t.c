@@ -3,30 +3,55 @@
 
 #include "../inc/node_t.h"
 
+// void push(node_t **head, node_t *element)
+// {
+//     if (*head == NULL)
+//     {
+//         *head = element;
+//     }
+//     else
+//     {
+//         node_t *cur = *head;
+        
+//         while (cur->next != NULL)
+//         {
+//             cur = cur->next;
+//         }
+
+//         next
+//     }
+// }
+
 void *pop_back(node_t **head)
 {
     void *ret_data = NULL;
 
-    node_t *temp_cur = *head;
-    node_t *temp_next = temp_cur->next;
-
-    if (temp_next == NULL)
-    {
-        ret_data = temp_cur->data;
-        free(temp_cur);
-        temp_cur = NULL;
-    }
-    else
-    {
-        while (temp_next->next != NULL)
+    if (head != NULL)
+    { 
+        if (*head != NULL)
         {
-            temp_cur = temp_next;
-            temp_next = temp_cur->next;
-        }
+            node_t *temp_cur = *head;
+            node_t *temp_next = temp_cur->next;
 
-        ret_data = temp_next->data;
-        free(temp_next);
-        temp_cur->next = NULL;
+            if (temp_next == NULL)
+            {
+                ret_data = temp_cur->data;
+                free(temp_cur);
+                *head = NULL;
+            }
+            else
+            {
+                while (temp_next->next != NULL)
+                {
+                    temp_cur = temp_next;
+                    temp_next = temp_cur->next;
+                }
+
+                ret_data = temp_next->data;
+                free(temp_next);
+                temp_cur->next = NULL;
+            }
+        }
     }
 
     return ret_data;
@@ -56,7 +81,7 @@ node_t *reverse(node_t *head)
     node_t *next = NULL;
     node_t *prev = NULL;
 
-    while (cur->next != NULL)
+    while (cur != NULL)
     {
         next = cur->next;
         cur->next = prev;
@@ -64,29 +89,41 @@ node_t *reverse(node_t *head)
         cur = next;
     }
 
-    return cur;
+    return prev;
 }
 
 void sorted_insert(node_t **head, node_t *element, int (*copmarator)(const void *, const void *))
 {
-    if (copmarator((*head)->data, element->data) > 0)
+    if (*head == NULL)
+    {
+        *head = element;
+        element->next = NULL;
+    }
+    else if (copmarator((*head)->data, element->data) > 0)
     {
         element->next = *head;
         *head = element;
     }
     else
     {
-        node_t *cur = (*head)->next;
+        node_t *cur = *head;
         node_t *next = cur->next;
- 
-        while (copmarator(next->data, element->data) < 0)
-        {
-            cur = next;
-            next = cur->next;
-        }
 
-        cur->next = element;
-        element->next = next;
+        if (next != NULL)
+        {
+            while (next != NULL && copmarator(next->data, element->data) < 0)
+            {
+                cur = next;
+                next = cur->next;
+            }
+
+            element->next = next;
+            cur->next = element;
+        }
+        else
+        {
+            cur->next = element;
+        }
     }
 }
 
