@@ -19,6 +19,6 @@ node_t *reverse(node_t *head);
 
 void sorted_insert(node_t **head, node_t *element, int (*copmarator)(const void *, const void *));
 
-void sort(node_t **head);
+node_t *sort(node_t *head, int (*comparator)(const void*, const void *));
 
 #endif //  __NODE_T_H__
