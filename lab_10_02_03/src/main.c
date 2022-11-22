@@ -44,8 +44,7 @@ int main(void)
             else
             {
                 rc = ERR_READING;
-            }
-            
+            }         
         }
         else if (strcmp(operation, SQR) == 0)
         {
@@ -74,8 +73,7 @@ int main(void)
             else
             {
                 rc = ERR_READING;
-            }
-            
+            }       
         }
         else if (strcmp(operation, MUL) == 0)
         {
@@ -125,9 +123,15 @@ int main(void)
                     process_prime_factorization((size_t) divinded, push_back_to_node_t, (void *) &prime_fact1);
                     process_prime_factorization((size_t) divider, push_back_to_node_t, (void *) &prime_fact2);
                     
-                    div_numbers(prime_fact1, prime_fact2, &prime_fact_res);
+                    if (div_numbers(prime_fact1, prime_fact2, &prime_fact_res))
+                    {
+                        print_degrees(prime_fact_res);
+                    }
+                    else
+                    {
+                        rc = ERR_DIV;
+                    }
 
-                    print_degrees(prime_fact_res);
 
                     free_node(&prime_fact1);
                     free_node(&prime_fact2);

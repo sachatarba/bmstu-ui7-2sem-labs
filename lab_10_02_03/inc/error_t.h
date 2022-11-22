@@ -6,7 +6,8 @@ enum error
     OK,
     ERR_READING,
     ERR_ZERO_NUMBER,
-    ERR_BAD_OPERATION
+    ERR_BAD_OPERATION,
+    ERR_DIV
 };
 
 typedef enum error error_t;

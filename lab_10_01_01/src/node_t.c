@@ -109,21 +109,21 @@ void sorted_insert(node_t **head, node_t *element, int (*copmarator)(const void 
     }
 }
 
-// node_t *sort(node_t *head, int (*comparator)(const void*, const void *))
-// {
-//     node_t *new_sorted_head = NULL;
-//     node_t *next = NULL;
+node_t *sort(node_t *head, int (*comparator)(const void*, const void *))
+{
+    node_t *new_sorted_head = NULL;
+    node_t *next = NULL;
 
-//     if (head != NULL && comparator != NULL)
-//     {
-//         while (head != NULL)
-//         {
-//             next = head->next;
-//             sorted_insert(&new_sorted_head, head, comparator);
-//             head = next;
-//             printf("%d", *((int *) (head)->data));
-//         }
-//     }
+    if (head != NULL && comparator != NULL)
+    {
+        while (head != NULL)
+        {
+            next = head->next;
+            head->next = NULL;
+            sorted_insert(&new_sorted_head, head, comparator);
+            head = next;
+        }
+    }
 
-//     return new_sorted_head;
-// }
+    return new_sorted_head;
+}

@@ -6,22 +6,22 @@
 
 int main(void)
 {
-    // // // printf("It works:)");
+    // // // // printf("It works:)");
 
     // int a[11] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
     // node_t *head = malloc(sizeof(node_t));
 
-    // // // for (size_t i = 0; i < 11; i++)
-    // // // {
-    // // //     head[i] 
-    // // // }
+    // // // // for (size_t i = 0; i < 11; i++)
+    // // // // {
+    // // // //     head[i] 
+    // // // // }
     
     // head->data = a;
     // head->next = NULL;
     // // node_t *cur = head;
 
-    // for (size_t i = 1; i < 11; i++)
+    // for (size_t i = 1; i < sizeof(a) / sizeof(a[0]); i++)
     // {
     //     node_t *new = malloc(sizeof(node_t));
     //     new->data = a + i;
@@ -30,19 +30,19 @@ int main(void)
     // }
     
 
-    // // // for (size_t i = 1; i <= 10; ++i)
-    // // // {
-    // // //     node_t *new = malloc(sizeof(node_t));
-    // // //     new->data = a[i];
-    // // //     cur->next = new;
-    // // //     cur = new;
-    // // // }
+    // // // // for (size_t i = 1; i <= 10; ++i)
+    // // // // {
+    // // // //     node_t *new = malloc(sizeof(node_t));
+    // // // //     new->data = a[i];
+    // // // //     cur->next = new;
+    // // // //     cur = new;
+    // // // // }
 
-    // // // cur->next = NULL;
+    // // // // cur->next = NULL;
 
-    // // // printf("%d", *((int *) pop_back(&head)));
-    // // // printf("%d", *((int *) pop_back(&head)));
-    // // // printf("%d", *((int *) pop_back(&head)));
+    // // // // printf("%d", *((int *) pop_back(&head)));
+    // // // // printf("%d", *((int *) pop_back(&head)));
+    // // // // printf("%d", *((int *) pop_back(&head)));
 
 
     // node_t *new_head = sort(head, copmare_int);
@@ -52,7 +52,7 @@ int main(void)
     //     printf("%d", *((int *) pop_back(&new_head)));
     // }
     
-    // // printf("%p", (void *) head);
+    // // // printf("%p", (void *) head);
 
     printf("Its works!");
     

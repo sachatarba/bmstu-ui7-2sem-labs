@@ -56,7 +56,7 @@ size_t pop_back(node_t **head)
                     temp_next = temp_cur->next;
                 }
 
-                ret_number= temp_next->degree;
+                ret_number = temp_next->degree;
                 free(temp_next);
                 temp_cur->next = NULL;
             }
