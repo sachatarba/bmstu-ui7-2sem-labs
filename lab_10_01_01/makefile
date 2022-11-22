@@ -3,7 +3,7 @@ CFLAGS := -std=c99 -Werror -Wall -pedantic -Wextra
 CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
 
 OBJS := ./out/node_t.o ./out/comparator.o
-OBJS_CHECK :=  $(OBJS) ./unit_tests/out/check_process.o
+OBJS_CHECK :=  $(OBJS) ./unit_tests/out/check_node_t.o
 
 app.exe : $(OBJS) ./out/main.o
 	$(CC) $^ -lm -o app.exe

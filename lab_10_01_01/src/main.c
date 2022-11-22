@@ -4,56 +4,59 @@
 #include "../inc/node_t.h"
 #include "../inc/comparator.h"
 
+#define OK 0
+#define ERR_READING 1
+#define ERR_COUNT 2
+
 int main(void)
 {
-    // // // // printf("It works:)");
+    int rc = OK;
 
-    // int a[11] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    node_t *head = NULL;
+    int count = 0;
 
-    // node_t *head = malloc(sizeof(node_t));
+    if (scanf("%d", &count) == 1)
+    {
+        if (count > 0)
+        {
+            int *data = malloc(sizeof(int) * count);
 
-    // // // // for (size_t i = 0; i < 11; i++)
-    // // // // {
-    // // // //     head[i] 
-    // // // // }
-    
-    // head->data = a;
-    // head->next = NULL;
-    // // node_t *cur = head;
+            for (size_t i = 0; (i < (size_t) count) && (rc == OK); ++i)
+            {
+                if (scanf("%d", data + i) == 1) 
+                {
+                    node_t *elem = malloc(sizeof(node_t));
+                    elem->next = NULL;
+                    elem->data = data + i;
+                    sorted_insert(&head, elem, copmare_int);
+                }
+                else
+                {
+                    rc = ERR_READING;
+                }
+            }
 
-    // for (size_t i = 1; i < sizeof(a) / sizeof(a[0]); i++)
-    // {
-    //     node_t *new = malloc(sizeof(node_t));
-    //     new->data = a + i;
-    //     new->next = NULL;
-    //     sorted_insert(&head, new, copmare_int);
-    // }
-    
+            node_t *new_head = reverse(head);
+            node_t *head_sorted = sort(new_head, copmare_int);
 
-    // // // // for (size_t i = 1; i <= 10; ++i)
-    // // // // {
-    // // // //     node_t *new = malloc(sizeof(node_t));
-    // // // //     new->data = a[i];
-    // // // //     cur->next = new;
-    // // // //     cur = new;
-    // // // // }
+            size_t i = 0;
 
-    // // // // cur->next = NULL;
-
-    // // // // printf("%d", *((int *) pop_back(&head)));
-    // // // // printf("%d", *((int *) pop_back(&head)));
-    // // // // printf("%d", *((int *) pop_back(&head)));
+            while (head_sorted != NULL)
+            {
+                printf("%d ", *((int *) pop_back(&head_sorted)));
+                free(data + i++);
+            }
+        }
+        else
+        {
+            rc = ERR_COUNT;
+        }
+    }
+    else
+    {
+        rc = ERR_READING;
+    }
 
 
-    // node_t *new_head = sort(head, copmare_int);
-
-    // for (size_t i = 0; i < 11; i++)
-    // {
-    //     printf("%d", *((int *) pop_back(&new_head)));
-    // }
-    
-    // // // printf("%p", (void *) head);
-
-    printf("Its works!");
-    
+    return rc;
 }
