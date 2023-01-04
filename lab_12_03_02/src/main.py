@@ -1,3 +1,4 @@
+from tkinter import *  
 import ctypes
 
 lib = ctypes.CDLL("./out/libutils.so")
@@ -23,9 +24,6 @@ def fill_array_prime(size):
     _fill_array_prime(dst, size)
     return dst
 
-from tkinter import *  
-  
-  
 def clicked_arr():  
     arr = in_arr.get()
     num = in_num.get()
@@ -35,7 +33,6 @@ def clicked_arr():
         res = insert_num_after_even(arr, num)
         lettrs_res = [str(x) for x in res]
         s = " ".join(lettrs_res)
-        # print(s)
         res_arr.configure(text=s)
     except Exception:
         res_arr.configure(text="Ошибка ввода!")
@@ -48,14 +45,12 @@ def clicked_prime():
             res = fill_array_prime(size)
             lettrs_res = [str(x) for x in res]
             s = " ".join(lettrs_res)
-            # print(s)
             res_prime.configure(text=s)
         else:
             res_prime.configure(text="Введите число не большее 30:)")
     except Exception:
         res_prime.configure(text="Ошибка ввода!")
 
-  
 window = Tk()  
 window.title("Program")  
 window.geometry('1000x800')  
@@ -80,6 +75,3 @@ btn_prime.grid(column=0, row=5)
 res_prime = Label(window, text="")
 res_prime.grid(column=1, row=4)
 window.mainloop()
-
-# print(*fill_array_prime(100))
-# print(*insert_num_after_even([int(x) for x in range(20)], 5))

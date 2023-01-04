@@ -1,26 +1,5 @@
 #include "../inc/utils.h"
 
-// static void sieve_of_eratosthenes(int *arr, size_t size)
-// {
-//     for(size_t i = 0; i < size; ++i)
-//     {
-//            arr[i] = i;
-//     }
-
-//     arr[1] = 0; 
- 
-//     for (size_t i = 2; i < size; ++i)
-//     {
-//         if(arr[i] != 0)
-//         {
-//             for(size_t j = i * 2; j < size; j += i)
-//             {
-//                 arr[j] = 0;
-//             }
-//         }
-//     }
-// }
-
 static bool is_prime(int number)
 {
     size_t sq = sqrt(number);
@@ -60,7 +39,6 @@ size_t insert_num_after_even(int *src, int *dst, size_t size, int num)
 
     if (src != NULL && dst == NULL)
     {
-
         for (size_t i = 0; i < size; ++i)
         {
             if (src[i] % 2 == 0)
@@ -88,18 +66,3 @@ size_t insert_num_after_even(int *src, int *dst, size_t size, int num)
 
     return dst_size;
 }
-
-// static void print_arr(int *arr, size_t size)
-// {
-//     for (size_t i = 0; i < size; ++i)
-//     {
-//         printf("%d ", arr[i]);
-//     }
-// }
-
-// int main(void)
-// {
-//     int arr[100];
-//     fill_array_prime(arr, 100);
-//     print_arr(arr, 100);
-// }
